@@ -51,7 +51,7 @@ const Comment = ({
 
   const handleReplySubmit = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/discussion/${id}/reply`, {
+      const response = await fetch(`http://194.233.93.124:3030/discussion/${id}/reply`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const Comment = ({
   useEffect(() => {
     const getCommentRepliesFromDB = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/discussion/${id}/replies`);
+        const response = await fetch(`http://194.233.93.124:3030/discussion/${id}/replies`);
         if (!response.ok) {
           throw new Error("Failed to fetch comment replies");
         }

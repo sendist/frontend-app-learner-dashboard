@@ -41,7 +41,7 @@ const DropdownDiscussion = ({
   const handleVerify = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/discussion/comment/${commentId}/verify`,
+        `http://194.233.93.124:3030/discussion/comment/${commentId}/verify`,
         {
           method: "PATCH",
           headers: {
@@ -66,7 +66,7 @@ const DropdownDiscussion = ({
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/discussion${path}/${id}`,
+        `http://194.233.93.124:3030/discussion${path}/${id}`,
         {
           method: "DELETE",
           headers: {

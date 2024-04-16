@@ -101,7 +101,7 @@ function ReportDialog({
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/discussion${path}/${id}`
+        `http://194.233.93.124:3030/discussion${path}/${id}`
       );
       if (!response.ok) {
         throw new Error('Failed to fetch comment data');
@@ -140,7 +140,7 @@ function ReportDialog({
         status_review: false
       };
 
-      const response = await fetch('http://localhost:3000/discussion/report', {
+      const response = await fetch('http://194.233.93.124:3030/discussion/report', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

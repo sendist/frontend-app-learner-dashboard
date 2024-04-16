@@ -40,7 +40,7 @@ export function DiscussionProvider({ children }: Props) {
 
   const fetchDiscussionList = async () => {
     try {
-      const response = await fetch("http://localhost:3000/discussion/");
+      const response = await fetch("http://194.233.93.124:3030/discussion/");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

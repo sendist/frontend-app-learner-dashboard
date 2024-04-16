@@ -65,7 +65,7 @@ const FormDialog: React.FC<FormDialogProps> = ({ isOpen, onClose }) => {
 
   const fetchTags = async () => {
     try {
-      const response = await fetch("http://localhost:3000/discussion/discussion/discussion/discussion/tags");
+      const response = await fetch("http://194.233.93.124:3030/discussion/discussion/discussion/discussion/tags");
       if (!response.ok) {
         throw new Error("Failed to fetch tags");
       }
@@ -169,7 +169,7 @@ const FormDialog: React.FC<FormDialogProps> = ({ isOpen, onClose }) => {
       }
   
       // Create the new thread with tagIds
-      const response = await fetch("http://localhost:3000/discussion/thread", {
+      const response = await fetch("http://194.233.93.124:3030/discussion/thread", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
