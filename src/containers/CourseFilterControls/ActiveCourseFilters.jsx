@@ -6,7 +6,6 @@ import { Button, Chip } from '@edx/paragon';
 import { CloseSmall } from '@edx/paragon/icons';
 
 import messages from './messages';
-import './index.scss';
 
 export const ActiveCourseFilters = ({
   filters,

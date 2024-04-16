@@ -21,7 +21,6 @@ import SortForm from './components/SortForm';
 import useCourseFilterControlsData from './hooks';
 import messages from './messages';
 
-import './index.scss';
 
 export const CourseFilterControls = ({
   sortBy,

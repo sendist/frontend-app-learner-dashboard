@@ -5,7 +5,7 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  Route, Navigate, Routes,
+  Route, Navigate, Routes, Outlet
 } from 'react-router-dom';
 
 import {
@@ -27,16 +27,40 @@ import { configuration } from './config';
 import messages from './i18n';
 
 import App from './App';
+import "./index.css";
 import NoticesWrapper from './components/NoticesWrapper';
+
+import Discussion from "./components/custom/Discussion";
+import ThreadList from "./components/custom/ThreadList";
+import ReportList from "./components/custom/ReportList";
+import { DiscussionProvider } from "./DiscussionContext";
+
+
+const Layout = () => {
+  return (
+    <div className="container text-left mx-auto p-4">
+      {/* Judul "Forum Diskusi" */}
+      <h1 className="text-4xl font-semibold mb-5">Forum Diskusi</h1>
+      <Outlet />
+    </div>
+  );
+};
 
 subscribe(APP_READY, () => {
   ReactDOM.render(
     <AppProvider store={store}>
       <NoticesWrapper>
-        <Routes>
-          <Route path="/" element={<PageWrap><App /></PageWrap>} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <DiscussionProvider>
+          <Routes>
+            <Route path="/" element={<PageWrap><App /></PageWrap>} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/discussion" element={<PageWrap><Layout /></PageWrap>}>
+              <Route index element={<ThreadList />} />
+              <Route path="/discussion/:threadId" element={<Discussion />} />
+              <Route path="/discussion/report-list" element={<ReportList/>} />
+            </Route>
+          </Routes>
+        </DiscussionProvider>
       </NoticesWrapper>
     </AppProvider>,
     document.getElementById('root'),

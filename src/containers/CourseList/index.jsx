@@ -15,7 +15,6 @@ import { useCourseListData, useIsCollapsed } from './hooks';
 
 import messages from './messages';
 
-import './index.scss';
 
 export const CourseList = () => {
   const { formatMessage } = useIntl();

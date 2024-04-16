@@ -11,7 +11,6 @@ import CourseCardActions from './components/CourseCardActions';
 import CourseCardDetails from './components/CourseCardDetails';
 import CourseCardTitle from './components/CourseCardTitle';
 
-import './CourseCard.scss';
 
 export const CourseCard = ({
   cardId,

@@ -52,6 +52,14 @@ export const ExpandedHeader = () => {
         >
           {formatMessage(messages.discoverNew)}
         </Button>
+        <Button
+          as="a"
+          href="/learner-dashboard/discussion"
+          variant="inverse-primary"
+          className="p-4"
+        >
+          {"Discussion"}
+        </Button>
         <WidgetNavbar placement={EXPANDED_NAVBAR} />
         <span className="flex-grow-1" />
         <Button
