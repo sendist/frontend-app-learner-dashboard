@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import parse from "html-react-parser";
 // import { CommentData } from "../types";
 import DropdownDiscussion from "./DropdownDiscussion";
+import { AppContext } from '@edx/frontend-platform/react';
 
 interface ThreadProps {
   id: number;
@@ -48,6 +49,7 @@ const Discussion = () => {
   const { threadId } = useParams<{ threadId: string }>();
   const { discussions, fetchDiscussionList } = useDiscussion();
   const [discussionData, setDiscussionData] = useState<ThreadProps | null>(null);
+  const { authenticatedUser } = React.useContext(AppContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,8 +73,8 @@ const Discussion = () => {
   const handleCommentSubmit = async (content: string, anonymous: boolean) => {
     const newComment: CommentData = {
       id: Math.floor(Math.random() * 1000) + 1, // Random ID (replace with actual ID logic)
-      user_id: "user1112", // Set user_id accordingly
-      author: "John Doe", // Update with author name or leave as Anonymous
+      user_id: authenticatedUser.username, // Set user_id accordingly
+      author: authenticatedUser.name ? authenticatedUser.name : authenticatedUser.username, // Update with author name or leave as Anonymous
       content,
       anonymous,
       verified: false,

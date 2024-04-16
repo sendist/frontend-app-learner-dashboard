@@ -7,7 +7,8 @@ import FormDialog from "../custom/FormDialog";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useDiscussion } from "../../DiscussionContext";
-import { getAuthenticatedUser } from "../../lib/getAuthenticatedUser";
+import { AppContext } from '@edx/frontend-platform/react';
+import React from "react";
 
 interface ThreadProps {
   id: string;
@@ -33,7 +34,8 @@ function MainPage() {
   const [found, setFound] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
-  const isAdmin = getAuthenticatedUser().administrator;
+  const { authenticatedUser } = React.useContext(AppContext);
+  console.log(authenticatedUser);
 
   const handleSearch = () => {
     if (searchQuery.trim() !== "") {
@@ -90,7 +92,7 @@ function MainPage() {
           >
             Cari
           </Button>
-          {isAdmin && (
+          {authenticatedUser.administrator && (
             <div className="ml-3">
               <Link to="/discussion/report-list">
                 <Button className="bg-[#38B0AB] hover:bg-teal-700">

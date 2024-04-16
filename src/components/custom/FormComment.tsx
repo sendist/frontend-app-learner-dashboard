@@ -5,6 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import { Label } from "../ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Switch from "./Switch";
+import { AppContext } from '@edx/frontend-platform/react';
 
 interface FormCommentProps {
   onSubmit: (content: string, anonymous: boolean) => void;
@@ -27,6 +28,8 @@ const FormComment: React.FC<FormCommentProps> = ({ onSubmit }) => {
     setAnonymousMode(false);
   };
 
+  const { authenticatedUser } = React.useContext(AppContext);
+
   return (
     <form onSubmit={handleSubmit} className="mt-4">
       <div className="flex flex-col space-y-4">
@@ -38,7 +41,7 @@ const FormComment: React.FC<FormCommentProps> = ({ onSubmit }) => {
           </Avatar>
           <div className="ml-3">
             <div className="text-base font-semibold text-black">
-              John Doe
+              {authenticatedUser.name ? authenticatedUser.name : authenticatedUser.username}
             </div>
           </div>
         </div>
