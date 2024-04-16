@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Button } from '@edx/paragon';
 
 import useCardDetailsData from './hooks';
-import './index.scss';
 
 export const CourseCardDetails = ({ cardId }) => {
   const {

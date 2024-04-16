@@ -10,7 +10,6 @@ import { baseAppUrl } from 'data/services/lms/urls';
 
 import track from '../RecommendationsPanel/track';
 import messages from './messages';
-import './index.scss';
 
 export const arrowIcon = (<Icon className="mx-1" src={ArrowForward} />);
 

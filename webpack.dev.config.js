@@ -18,7 +18,7 @@ config.plugins.push(
         from: path.resolve(__dirname, './public/robots.txt'),
         to: path.resolve(__dirname, './dist/robots.txt'),
       },
-    ],
+    ]
   }),
 );
 
