@@ -58,7 +58,7 @@ export const ExpandedHeader = () => {
           variant="inverse-primary"
           className="p-4"
         >
-          {"Discussion"}
+          Discussion
         </Button>
         <WidgetNavbar placement={EXPANDED_NAVBAR} />
         <span className="flex-grow-1" />
