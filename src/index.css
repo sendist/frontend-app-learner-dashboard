@@ -5,9 +5,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 #root {
+  height: 100%;
   font-family: "Poppins", sans-serif;
   font-style: normal;
 }
+
+.sidebar {
+  width: 96px;  
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  transition: width 0.3s ease;
+}
+
+.main-content {
+  margin-left: 96px; 
+  width: calc(100% - 96px);
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    width: 280px;  
+  }
+
+  .main-content {
+    margin-left: 280px;  
+    width: calc(100% - 280px);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;  
+    height: auto; 
+  }
+
+  .main-content {
+    margin-left: 0;  
+    width: 100%; 
+  }
+}
+
+
 
 @layer base {
   :root {
