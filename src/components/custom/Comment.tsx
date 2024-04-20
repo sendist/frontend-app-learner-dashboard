@@ -4,13 +4,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import DropdownDiscussion from "./DropdownDiscussion";
 import { Button } from "../ui/button";
 import Upvote from "./Upvote";
-import { getAuthenticatedUser } from "../../lib/getAuthenticatedUser";
 import parse from "html-react-parser";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import CommentReply from "./CommentReply";
 import Switch from "./Switch"; 
 import { Label } from "../ui/label";
+import { AppContext } from '@edx/frontend-platform/react';
 
 interface CommentProps {
   id: number;
@@ -39,6 +39,7 @@ const Comment = ({
   const [commentReplies, setCommentReplies] = useState<CommentProps[]>([]);
   const [anonymousMode, setAnonymousMode] = useState(false); // State for Anonymous Mode
   const timeAgo = moment(created_at).fromNow();
+  const { authenticatedUser } = React.useContext(AppContext);
 
   const handleReply = () => {
     setShowReply(true);
@@ -51,14 +52,14 @@ const Comment = ({
 
   const handleReplySubmit = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/discussion/${id}/reply`, {
+      const response = await fetch(`http://194.233.93.124:3030/discussion/${id}/reply`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: "user910", // Ganti dengan user_id yang sesuai
-          author: getAuthenticatedUser().username,
+          user_id: authenticatedUser.username,
+          author: authenticatedUser.name ? authenticatedUser.name : authenticatedUser.username,
           content: replyContent, // Mengambil dari replyContent di state
           anonymous: anonymousMode, // Menggunakan nilai anonymousMode
           verified: false
@@ -85,7 +86,7 @@ const Comment = ({
   useEffect(() => {
     const getCommentRepliesFromDB = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/discussion/${id}/replies`);
+        const response = await fetch(`http://194.233.93.124:3030/discussion/${id}/replies`);
         if (!response.ok) {
           throw new Error("Failed to fetch comment replies");
         }
@@ -175,7 +176,7 @@ const Comment = ({
           </button>
         </div>
 
-        <Upvote commentId={id} user_id={getAuthenticatedUser().username} upvote={upvote}/>
+        <Upvote commentId={id} user_id={authenticatedUser.username} upvote={upvote}/>
       </section>
 
       {showReply && (
@@ -187,7 +188,7 @@ const Comment = ({
             </Avatar>
             <div className="ml-3">
               <div className="text-base font-semibold text-black">
-                {getAuthenticatedUser().username}
+                {authenticatedUser.username}
               </div>
             </div>
           </div>

@@ -17,7 +17,7 @@ const Upvote = ({ commentId, user_id, upvote}: UpvoteProps) => {
 
   const vote = async () => {
     const response = await fetch(
-      `http://localhost:3000/discussion/comment/${commentId}/upvote`,
+      `http://194.233.93.124:3030/discussion/comment/${commentId}/upvote`,
       {
         method: "PATCH",
         headers: {
@@ -35,7 +35,7 @@ const Upvote = ({ commentId, user_id, upvote}: UpvoteProps) => {
   useEffect(() => {
     const fetchUpvote = async () => {
       const response = await fetch(
-        `http://localhost:3000/discussion/comment/user-upvote/${commentId}`,
+        `http://194.233.93.124:3030/discussion/comment/user-upvote/${commentId}`,
         {
           method: "POST",
           headers: {

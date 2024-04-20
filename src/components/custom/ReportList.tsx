@@ -27,7 +27,7 @@ function ReportList() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/discussion/report/list`
+        `http://194.233.93.124:3030/discussion/report/list`
       );
       if (!response.ok) {
         throw new Error('Failed to fetch report data');

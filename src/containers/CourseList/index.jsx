@@ -15,7 +15,6 @@ import { useCourseListData, useIsCollapsed } from './hooks';
 
 import messages from './messages';
 
-
 export const CourseList = () => {
   const { formatMessage } = useIntl();
   const hasCourses = reduxHooks.useHasCourses();

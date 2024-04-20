@@ -6,7 +6,6 @@ import ConfirmEmailBanner from './ConfirmEmailBanner';
 import CollapsedHeader from './CollapsedHeader';
 import ExpandedHeader from './ExpandedHeader';
 
-
 export const LearnerDashboardHeader = () => (
   <>
     <ConfirmEmailBanner />

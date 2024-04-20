@@ -9,9 +9,9 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { getAuthenticatedUser } from "../../lib/getAuthenticatedUser";
 import { useDiscussion } from "../../DiscussionContext";
 import ReportDialog from "./ReportDialog";
+import { AppContext } from '@edx/frontend-platform/react';
 
 interface DropdownDiscussionProps {
   user_id: string;
@@ -32,23 +32,22 @@ const DropdownDiscussion = ({
   path,
   id,
 }: DropdownDiscussionProps) => {
-  const isAdmin = getAuthenticatedUser().administrator;
-  const username = getAuthenticatedUser().username;
-
   const [isReportDialogOpen, setIsReportDialogOpen] = React.useState(false);
   const { discussions, fetchDiscussionList } = useDiscussion();
+
+  const { authenticatedUser } = React.useContext(AppContext);
 
   const handleVerify = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/discussion/comment/${commentId}/verify`,
+        `http://194.233.93.124:3030/discussion/comment/${commentId}/verify`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            isAdmin: getAuthenticatedUser().administrator,
+            isAdmin: authenticatedUser.administrator,
           }),
         }
       );
@@ -66,14 +65,14 @@ const DropdownDiscussion = ({
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/discussion${path}/${id}`,
+        `http://194.233.93.124:3030/discussion${path}/${id}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: getAuthenticatedUser().username,
+            userId: authenticatedUser.username,
           }),
         }
       );
@@ -108,7 +107,7 @@ const DropdownDiscussion = ({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end">
-          {isAdmin && showVerify && (
+          {authenticatedUser.administrator && showVerify && (
             <Button variant="ghost" onClick={handleVerify}>
               <DropdownMenuItem className="font-light text-lg">
                 <svg
@@ -144,7 +143,7 @@ const DropdownDiscussion = ({
               </DropdownMenuItem>
             </Button>
           )}
-          {user_id === username && (
+          {user_id === authenticatedUser.username && (
             <Button variant="ghost" onClick={handleDelete}>
               <DropdownMenuItem className="font-light text-lg">
                 <svg
@@ -189,7 +188,7 @@ const DropdownDiscussion = ({
               </DropdownMenuItem>
             </Button>
           )}
-          {user_id !== username && (
+          {user_id !== authenticatedUser.username && (
             <DropdownMenuItem onClick={() => setIsReportDialogOpen(true)}>
               <Button variant="ghost" className="flex font-light text-lg">
                 <svg

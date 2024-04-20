@@ -5,6 +5,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { X } from "react-feather";
+import { AppContext } from '@edx/frontend-platform/react';
 
 interface FormDialogProps {
   isOpen: boolean;
@@ -46,13 +47,13 @@ const FormDialog: React.FC<FormDialogProps> = ({ isOpen, onClose }) => {
     title: "",
     content: "",
     tags: [] as number[], // Array to store tag IDs
-    user_id: "user1011",
-    author: "Adilla",
   });
   const quillRef = useRef<ReactQuill>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isSwitchOpen, setIsSwitchOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+
+  const { authenticatedUser } = React.useContext(AppContext);
 
   useEffect(() => {
     fetchTags();
@@ -65,7 +66,7 @@ const FormDialog: React.FC<FormDialogProps> = ({ isOpen, onClose }) => {
 
   const fetchTags = async () => {
     try {
-      const response = await fetch("http://localhost:3000/discussion/discussion/discussion/discussion/tags");
+      const response = await fetch("http://194.233.93.124:3030/discussion/discussion/discussion/discussion/tags");
       if (!response.ok) {
         throw new Error("Failed to fetch tags");
       }
@@ -169,7 +170,7 @@ const FormDialog: React.FC<FormDialogProps> = ({ isOpen, onClose }) => {
       }
   
       // Create the new thread with tagIds
-      const response = await fetch("http://localhost:3000/discussion/thread", {
+      const response = await fetch("http://194.233.93.124:3030/discussion/thread", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -179,8 +180,8 @@ const FormDialog: React.FC<FormDialogProps> = ({ isOpen, onClose }) => {
           content: formData.content,
           anonymous: anonymousMode,
           tags: formData.tags, // Mengirim ID tag ke backend
-          user_id: formData.user_id,
-          author: formData.author,
+          user_id: authenticatedUser.username,
+          author: authenticatedUser.name ? authenticatedUser.name : authenticatedUser.username,
         }),
       });
   

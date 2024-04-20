@@ -29,7 +29,7 @@ import LearnerDashboardHeader from 'containers/LearnerDashboardHeader';
 
 import { getConfig } from '@edx/frontend-platform';
 import messages from './messages';
-import "./index.css";
+import './index.css';
 
 export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);

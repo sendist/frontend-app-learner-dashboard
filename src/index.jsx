@@ -5,7 +5,7 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  Route, Navigate, Routes, Outlet
+  Route, Navigate, Routes, Outlet,
 } from 'react-router-dom';
 
 import {
@@ -27,14 +27,13 @@ import { configuration } from './config';
 import messages from './i18n';
 
 import App from './App';
-import "./index.css";
+import './index.css';
 import NoticesWrapper from './components/NoticesWrapper';
 
-import Discussion from "./components/custom/Discussion";
-import ThreadList from "./components/custom/ThreadList";
-import ReportList from "./components/custom/ReportList";
-import { DiscussionProvider } from "./DiscussionContext";
-
+import Discussion from './components/custom/Discussion';
+import ThreadList from './components/custom/ThreadList';
+import ReportList from './components/custom/ReportList';
+import { DiscussionProvider } from './DiscussionContext';
 
 const Layout = () => {
   return (
@@ -57,7 +56,8 @@ subscribe(APP_READY, () => {
             <Route path="/discussion" element={<PageWrap><Layout /></PageWrap>}>
               <Route index element={<ThreadList />} />
               <Route path="/discussion/:threadId" element={<Discussion />} />
-              <Route path="/discussion/report-list" element={<ReportList/>} />
+              <Route path="/discussion/report-list" element={<ReportList />} />
+
             </Route>
           </Routes>
         </DiscussionProvider>
