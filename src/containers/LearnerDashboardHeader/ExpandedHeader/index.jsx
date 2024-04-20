@@ -25,25 +25,25 @@ export const ExpandedHeader = () => {
     !isCollapsed && (
     <header className="d-flex shadow-sm align-items-center learner-variant-header pl-4">
       <div className="flex-grow-1 d-flex align-items-center">
-        <BrandLogo />
+        {/* <BrandLogo /> */}
 
-        <Button
+        {/* <Button
           as="a"
           href="/"
           variant="inverse-primary"
           className="p-4 course-link"
         >
           {formatMessage(messages.course)}
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           as="a"
           href={urls.programsUrl()}
           variant="inverse-primary"
           className="p-4"
         >
           {formatMessage(messages.program)}
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           as="a"
           href={urls.baseAppUrl(courseSearchUrl)}
           variant="inverse-primary"
@@ -51,16 +51,16 @@ export const ExpandedHeader = () => {
           onClick={exploreCoursesClick}
         >
           {formatMessage(messages.discoverNew)}
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           as="a"
           href="/learner-dashboard/discussion"
           variant="inverse-primary"
           className="p-4"
         >
           Discussion
-        </Button>
-        <WidgetNavbar placement={EXPANDED_NAVBAR} />
+        </Button> */}
+        {/* <WidgetNavbar placement={EXPANDED_NAVBAR} />
         <span className="flex-grow-1" />
         <Button
           as="a"
@@ -69,7 +69,7 @@ export const ExpandedHeader = () => {
           className="p-4"
         >
           {formatMessage(messages.help)}
-        </Button>
+        </Button> */}
       </div>
 
       <AuthenticatedUserDropdown />

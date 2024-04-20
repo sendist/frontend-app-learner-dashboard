@@ -34,13 +34,33 @@ import Discussion from './components/custom/Discussion';
 import ThreadList from './components/custom/ThreadList';
 import ReportList from './components/custom/ReportList';
 import { DiscussionProvider } from './DiscussionContext';
+import Sidebar from "./components/custom/Sidebar";
 
 const Layout = () => {
   return (
-    <div className="container text-left mx-auto p-4">
-      {/* Judul "Forum Diskusi" */}
-      <h1 className="text-4xl font-semibold mb-5">Forum Diskusi</h1>
-      <Outlet />
+    <div className="flex">
+     <div className="main-content">
+      <Sidebar />
+      <div className="flex-1 text-left mx-auto p-4">
+        <App />
+        <Outlet />
+      </div>
+      </div>
+    </div>
+  );
+};
+
+const ForumLayout = () => {
+  return (
+    <div className="flex">
+     <div className="main-content">
+      <Sidebar />
+      <div className="flex-1 text-left mx-auto p-4">
+        <App />
+        <h1 className="text-4xl font-semibold mb-5">Forum Diskusi</h1>
+        <Outlet />
+      </div>
+      </div>
     </div>
   );
 };
@@ -51,15 +71,28 @@ subscribe(APP_READY, () => {
       <NoticesWrapper>
         <DiscussionProvider>
           <Routes>
-            <Route path="/" element={<PageWrap><App /></PageWrap>} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-            <Route path="/discussion" element={<PageWrap><Layout /></PageWrap>}>
-              <Route index element={<ThreadList />} />
-              <Route path="/discussion/:threadId" element={<Discussion />} />
-              <Route path="/discussion/report-list" element={<ReportList />} />
-
-            </Route>
-          </Routes>
+          <Route path="/" element={<PageWrap><Layout /></PageWrap>} >
+            <Route index element={<div>Dashboard Component</div>} />
+            <Route path="quiz" element={<div>Quiz Component</div>} />
+            <Route
+              path="studynotes"
+              element={<div>Study Notes Component</div>}
+            />
+            <Route path="reports" element={<div>Reports Component</div>} />
+            <Route path="inbox" element={<div>Inbox Component</div>} />
+            <Route
+              path="findfriends"
+              element={<div>Find Friends Component</div>}
+            />
+            <Route path="settings" element={<div>Settings Component</div>} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="discussion" element={<ForumLayout />}>
+            <Route index element={<ThreadList />} />{" "}
+            <Route path=":threadId" element={<Discussion />} />
+            <Route path="report-list" element={<ReportList />} />
+          </Route>
+        </Routes>
         </DiscussionProvider>
       </NoticesWrapper>
     </AppProvider>,

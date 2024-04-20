@@ -96,7 +96,7 @@ export const App = () => {
       <div>
         <AppWrapper>
           <LearnerDashboardHeader />
-          <main>
+          {/* <main>
             {hasNetworkFailure
               ? (
                 <Alert variant="danger">
@@ -107,10 +107,8 @@ export const App = () => {
                   <Dashboard />
                 </ExperimentProvider>
               )}
-          </main>
+          </main> */}
         </AppWrapper>
-        <Footer logo={getConfig().LOGO_POWERED_BY_OPEN_EDX_URL_SVG} />
-        <ZendeskFab />
       </div>
     </>
   );

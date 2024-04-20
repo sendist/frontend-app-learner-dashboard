@@ -13,11 +13,6 @@ export const BrandLogo = () => {
 
   return (
     <a href={dashboard?.url || '/'} className="mx-auto">
-      <img
-        className="logo py-3"
-        src={getConfig().LOGO_URL}
-        alt={formatMessage(messages.logoAltText)}
-      />
     </a>
   );
 };

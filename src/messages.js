@@ -13,8 +13,8 @@ export const messages = StrictDict({
   },
   pageTitle: {
     id: 'learner-dash.title',
-    description: 'Page title: Learner Home',
-    defaultMessage: 'Learner Home',
+    description: 'Page title: Sakau Belajar',
+    defaultMessage: 'Sakau Belajar',
   },
 });
 
