@@ -35,45 +35,38 @@ import ThreadList from './components/custom/ThreadList';
 import ReportList from './components/custom/ReportList';
 import { DiscussionProvider } from './DiscussionContext';
 import QuizKreatif from './components/custom/QuizKreatif';
-import Sidebar from "./components/custom/Sidebar";
+import Sidebar from './components/custom/Sidebar';
 
-const Layout = () => {
-  return (
-    <div className="flex">
-      <div className="main-content">
-        <Sidebar />
-        <div className="flex-1 text-left mx-auto p-4">
-          <App />
-          <Outlet />
-        </div>
+const Layout = () => (
+  <div className="flex">
+    <div className="main-content">
+      <Sidebar />
+      <div className="flex-1 text-left mx-auto p-4">
+        <App />
+        <Outlet />
       </div>
     </div>
-  );
-};
+  </div>
+);
 
-const ForumLayout = () => {
-  return (
-    <div className="flex">
-      <div className="main-content">
-        <Sidebar />
-        <div className="flex-1 text-left mx-auto p-4">
-          <App />
-          <h1 className="text-4xl font-semibold mb-5">Forum Diskusi</h1>
-          <Outlet />
-        </div>
+const ForumLayout = () => (
+  <div className="flex">
+    <div className="main-content">
+      <Sidebar />
+      <div className="flex-1 text-left mx-auto p-4">
+        <App />
+        <h1 className="text-4xl font-semibold mb-5">Forum Diskusi</h1>
+        <Outlet />
       </div>
     </div>
-  );
-};
+  </div>
+);
 
-const QuizKreatifLayout = () => {
-  return (
-    <div className="flex">
-      <div className="main-content">
-      </div>
-    </div>
-  );
-};
+const QuizKreatifLayout = () => (
+  <div className="flex">
+    <div className="main-content" />
+  </div>
+);
 
 subscribe(APP_READY, () => {
   ReactDOM.render(
@@ -81,7 +74,7 @@ subscribe(APP_READY, () => {
       <NoticesWrapper>
         <DiscussionProvider>
           <Routes>
-            <Route path="/" element={<PageWrap><Layout /></PageWrap>} >
+            <Route path="/" element={<PageWrap><Layout /></PageWrap>}>
               <Route index element={<div>Dashboard Component</div>} />
               <Route path="quiz" element={<QuizKreatif />} />
               <Route
@@ -98,7 +91,7 @@ subscribe(APP_READY, () => {
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="discussion" element={<ForumLayout />}>
-              <Route index element={<ThreadList />} />{" "}
+              <Route index element={<ThreadList />} />{' '}
               <Route path=":threadId" element={<Discussion />} />
               <Route path="report-list" element={<ReportList />} />
             </Route>
