@@ -35,6 +35,8 @@ import ThreadList from './components/custom/ThreadList';
 import ReportList from './components/custom/ReportList';
 import { DiscussionProvider } from './DiscussionContext';
 import QuizKreatif from './components/custom/QuizKreatif';
+import TambahQuiz from './components/custom/TambahQuiz';
+import EditQuiz from './components/custom/EditQuiz';
 import Sidebar from './components/custom/Sidebar';
 
 const Layout = () => (
@@ -77,6 +79,8 @@ subscribe(APP_READY, () => {
             <Route path="/" element={<PageWrap><Layout /></PageWrap>}>
               <Route index element={<div>Dashboard Component</div>} />
               <Route path="quiz" element={<QuizKreatif />} />
+              <Route path="/tambah-quiz" element={<TambahQuiz />} />
+              <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
               <Route
                 path="studynotes"
                 element={<div>Study Notes Component</div>}
@@ -98,7 +102,7 @@ subscribe(APP_READY, () => {
           </Routes>
         </DiscussionProvider>
       </NoticesWrapper>
-    </AppProvider>,
+    </AppProvider >,
     document.getElementById('root'),
   );
 });
