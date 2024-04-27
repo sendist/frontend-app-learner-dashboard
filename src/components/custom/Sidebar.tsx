@@ -23,7 +23,7 @@ const menuItems: IMenuItem[] = [
   { name: "Study Notes", iconSrc: studynotesIcon, path: "/studynotes" },
   { name: "Discussion Forum", iconSrc: disscussionIcon, path: "/discussion" },
   { name: "Reports", iconSrc: reportsIcon, path: "/reports" },
-  { name: "Inbox", iconSrc: inboxIcon, path: "/inbox" },
+  { name: "Group Chat", iconSrc: inboxIcon, path: "/groupchat" },
   { name: "Find Friends", iconSrc: findfriendsIcon, path: "/findfriends" },
   { name: "Settings", iconSrc: settingsIcon, path: "/settings" },
 ];

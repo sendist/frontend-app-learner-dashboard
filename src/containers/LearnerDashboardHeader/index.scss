@@ -1,29 +1,37 @@
+// Dropdown Menu
 .dropdown-menu-collapse {
   width: 100vw;
   position: absolute;
   left: 0;
 }
 
+// Learner Variant Header
 .learner-variant-header {
   a {
-    // needed to make the link not resize the header
+    // Ensure links don't resize the header
     border-bottom: 2px solid transparent;
+    color: #333;
+    text-decoration: none;
+    transition: border-color 0.3s ease; 
   }
+
   .course-link {
-    border-bottom: 2px solid !important;
+    border-bottom: 2px solid transparent; 
+    transition: border-color 0.3s ease; 
   }
 
   .course-link:hover {
-    border-bottom: inherit !important;
+    border-bottom-color: #007bff; 
   }
 }
 
+// Navigation Small Menu
 .nav-small-menu {
   > * {
     justify-content: flex-start !important;
-
     border-radius: 0 !important;
     border-top: 1px solid #ddd !important;
+    padding: 10px; 
 
     &::after {
       content: '\00BB';
@@ -32,7 +40,7 @@
   }
 }
 
+// Logo
 .logo {
-  // copy from legacy dashboard
-  height: 40px;
+  height: 40px; 
 }
