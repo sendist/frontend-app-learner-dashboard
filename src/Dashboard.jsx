@@ -16,6 +16,7 @@ import {
   actions,
 } from 'data/redux';
 import { reduxHooks } from 'hooks';
+import Dashboard from 'containers/Dashboard';
 import ZendeskFab from 'components/ZendeskFab';
 import { ExperimentProvider } from 'ExperimentContext';
 
@@ -29,6 +30,7 @@ import LearnerDashboardHeader from 'containers/LearnerDashboardHeader';
 import { getConfig } from '@edx/frontend-platform';
 import messages from './messages';
 import './index.css';
+// import './App.scss';
 
 export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);
@@ -94,7 +96,7 @@ export const App = () => {
       </Helmet>
       <div>
         <AppWrapper>
-          <LearnerDashboardHeader />
+          {/* <LearnerDashboardHeader /> */}
           <main>
             {hasNetworkFailure
               ? (
@@ -103,6 +105,7 @@ export const App = () => {
                 </Alert>
               ) : (
                 <ExperimentProvider>
+                  <Dashboard />
                 </ExperimentProvider>
               )}
           </main>

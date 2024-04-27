@@ -26,7 +26,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
   return (
     isOpen && (
       <div className="d-flex flex-column shadow-sm nav-small-menu">
-        <Button as="a" href="/" variant="inverse-primary">
+        {/*<Button as="a" href="/" variant="inverse-primary">
           {formatMessage(messages.course)}
         </Button>
         <Button as="a" href={urls.programsUrl()} variant="inverse-primary">
@@ -43,22 +43,22 @@ export const CollapseMenuBody = ({ isOpen }) => {
         <WidgetNavbar placement={COLLAPSED_NAVBAR} />
         <Button as="a" href={getConfig().SUPPORT_URL} variant="inverse-primary">
           {formatMessage(messages.help)}
-        </Button>
+        </Button>*/}
         {authenticatedUser && (
           <>
-            {!!dashboard && (
+            {/*!!dashboard && (
               <Button as="a" href={dashboard.url} variant="inverse-primary">
                 {formatMessage(messages.dashboard)}
               </Button>
-            )}
-            {!dashboard && getConfig().CAREER_LINK_URL && (
+            )*/}
+            {/*!dashboard && getConfig().CAREER_LINK_URL && (
               <Button href={`${getConfig().CAREER_LINK_URL}`}>
                 {formatMessage(messages.career)}
                 <Badge className="px-2 mx-2" variant="warning">
                   {formatMessage(messages.newAlert)}
                 </Badge>
               </Button>
-            )}
+            )*/}
             <Button
               as="a"
               href={`${getConfig().LMS_BASE_URL}/u/${
@@ -75,7 +75,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
             >
               {formatMessage(messages.account)}
             </Button>
-            {getConfig().ORDER_HISTORY_URL && (
+            {/*getConfig().ORDER_HISTORY_URL && (
               <Button
                 as="a"
                 variant="inverse-primary"
@@ -83,7 +83,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
               >
                 {formatMessage(messages.orderHistory)}
               </Button>
-            )}
+            )*/}
             <Button
               as="a"
               href={getConfig().LOGOUT_URL}

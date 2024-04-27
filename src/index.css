@@ -20,6 +20,16 @@
   transition: width 0.3s ease;
 }
 
+@layer utilities {
+  .hovered-icon {
+      filter: brightness(0) invert(1);
+  }
+
+  .nav-link:hover .hovered-icon {
+      filter: brightness(1) invert(0);
+  }
+}
+
 .main-content {
   margin-left: 96px; 
   width: calc(100% - 96px);
@@ -38,7 +48,7 @@
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .sidebar {
     width: 100%;  
     height: auto; 

@@ -133,7 +133,7 @@ function MainPage() {
             />
           ))}
           
-          <FormDialog isOpen={isFormOpen} onClose={closeFormDialog} onSubmit={handleSubmit} />
+          <FormDialog isOpen={isFormOpen} onClose={closeFormDialog} onSubmit={handleSubmit}  />
           {/* {isAdmin && (
             <ReportList/>
           //   <Button
