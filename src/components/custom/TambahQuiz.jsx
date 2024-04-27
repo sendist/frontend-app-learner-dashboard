@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Select from 'react-select';
+import Creatable from 'react-select/creatable';
 // import NavbarQuiz from '../components/NavbarQuiz';
 import { FaCheck } from 'react-icons/fa';
 import { IoCloudUpload } from 'react-icons/io5';
-
+import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
 const TambahQuiz = () => {
     const [title, setTitle] = useState('');
@@ -45,12 +45,22 @@ const TambahQuiz = () => {
         setTags(selectedOptions);
     };
 
+    const handleCreateTag = (inputValue) => {
+        const newTag = { label: inputValue, value: inputValue };
+        setTagOptions(prevOptions => [...prevOptions, newTag]);
+        setTags(prevTags => [...prevTags, newTag]);
+    };
+
     const handleNextClick = () => {
         setShowQuizizView(true);
     };
 
     const handlePrevClick = () => {
         setShowQuizizView(false);
+    };
+
+    const handleBackClick = () => {
+        navigate('/');
     };
 
     const handleSave = async () => {
@@ -68,13 +78,23 @@ const TambahQuiz = () => {
         try {
             const response = await axios.post('http://194.233.93.124:3030/quiz/new-quiz', formData);
             console.log(response.data);
-            navigate('/quiz');
+            navigate('/');
         } catch (error) {
             console.log(error)
             setErrMsg(error.response?.data?.msg || "An error occurred");
             setIsLoading(false);
         }
     };
+
+    const handleFileDrop = (event) => {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        if (file) {
+            setFile(file);
+            setSelectedFileName(file.name);
+        }
+    };
+
 
     return (
         <div>
@@ -122,7 +142,7 @@ const TambahQuiz = () => {
                                     <input
                                         type="text"
                                         id="userId"
-                                        value={userId}
+                                        value={getAuthenticatedUser().userId}
                                         onChange={e => setUserId(e.target.value)}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-[#F5F7F9]"
                                     />
@@ -131,10 +151,11 @@ const TambahQuiz = () => {
                                     <label htmlFor="tags" className="block text-gray-700 text-sm font-bold mb-2">
                                         Tags
                                     </label>
-                                    <Select
+                                    <Creatable
                                         id="tags"
                                         value={tags}
                                         onChange={handleTagChange}
+                                        onCreateOption={handleCreateTag}
                                         options={tagOptions}
                                         isMulti
                                         className="basic-multi-select bg-[#F5F7F9]"
@@ -159,25 +180,22 @@ const TambahQuiz = () => {
                                     <label className="block text-gray-700 text-sm font-bold mb-4 text-center">
                                         File Upload
                                     </label>
-                                    <div className="flex flex-col items-center">
+                                    <div
+                                        className="flex flex-col items-center p-4 w-full border-2 border-dashed border-gray-300 rounded-lg cursor-pointer"
+                                        onDragOver={(e) => e.preventDefault()} // Prevent default to allow drop
+                                        onDrop={handleFileDrop} // Handle file drops
+                                        onClick={() => document.getElementById('fileInput').click()} // Click the hidden file input when the area is clicked
+                                    >
                                         <div className="flex items-center justify-center bg-gray-200 rounded-full w-12 h-12 mb-4">
                                             <IoCloudUpload className="text-3xl text-gray-400" />
                                         </div>
-                                        <div className="text-sm text-gray-600 mb-2">Seret dan lepas di sini atau</div>
-                                        <div className="mt-2">
-                                            <input
-                                                type="file"
-                                                onChange={handleFileInputChange}
-                                                className="hidden"
-                                                id="fileInput"
-                                            />
-                                            <label
-                                                htmlFor="fileInput"
-                                                className="bg-[#38B0AB] hover:bg-[#2f8c87] text-white font-bold py-2 px-4 rounded cursor-pointer"
-                                            >
-                                                Pilih Gambar
-                                            </label>
-                                        </div>
+                                        <div className="text-sm text-gray-600 mb-2">Drag and drop here or click to select</div>
+                                        <input
+                                            type="file"
+                                            onChange={handleFileInputChange}
+                                            className="hidden"
+                                            id="fileInput"
+                                        />
                                     </div>
                                     {selectedFileName && (
                                         <div className="mt-2 text-sm text-gray-600 text-center">
@@ -189,7 +207,7 @@ const TambahQuiz = () => {
                         </div>
                         <div className="flex justify-end gap-4">
                             <button
-                                onClick={handlePrevClick}
+                                onClick={handleBackClick}
                                 className="bg-white text-gray-700 hover:bg-gray-200 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
                                 Kembali

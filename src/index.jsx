@@ -37,6 +37,7 @@ import { DiscussionProvider } from './DiscussionContext';
 import QuizKreatif from './components/custom/QuizKreatif';
 import TambahQuiz from './components/custom/TambahQuiz';
 import EditQuiz from './components/custom/EditQuiz';
+import MyQuiz from './components/custom/MyQuiz';
 import Sidebar from './components/custom/Sidebar';
 
 const Layout = () => (
@@ -64,12 +65,6 @@ const ForumLayout = () => (
   </div>
 );
 
-const QuizKreatifLayout = () => (
-  <div className="flex">
-    <div className="main-content" />
-  </div>
-);
-
 subscribe(APP_READY, () => {
   ReactDOM.render(
     <AppProvider store={store}>
@@ -81,6 +76,7 @@ subscribe(APP_READY, () => {
               <Route path="quiz" element={<QuizKreatif />} />
               <Route path="/tambah-quiz" element={<TambahQuiz />} />
               <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
+              <Route path="/my-quiz/:userId" element={<MyQuiz />} />
               <Route
                 path="studynotes"
                 element={<div>Study Notes Component</div>}
