@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Link } from "react-router-dom";
@@ -8,7 +8,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useDiscussion } from "../../DiscussionContext";
 import { AppContext } from '@edx/frontend-platform/react';
-import React from "react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationItem,
+  PaginationLink,
+} from "../ui/pagination";
 
 interface ThreadProps {
   id: string;
@@ -33,7 +40,8 @@ function MainPage() {
     useState<ThreadProps[]>(discussions);
   const [found, setFound] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const threadsPerPage = 3;
   const { authenticatedUser } = React.useContext(AppContext);
   const isAdmin = authenticatedUser.administrator;
 
@@ -71,6 +79,17 @@ function MainPage() {
     closeFormDialog();
   }
 
+  const indexOfLastThread = currentPage * threadsPerPage;
+  const indexOfFirstThread = indexOfLastThread - threadsPerPage;
+  const currentThreads = found ? filteredDiscussions.slice(indexOfFirstThread, indexOfLastThread) : discussions.slice(indexOfFirstThread, indexOfLastThread);
+  const totalPages = Math.ceil((found ? filteredDiscussions.length : discussions.length) / threadsPerPage);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+
+
   return (
     <div className="container text-left mx-auto p-4">
       {/* Button "Tambah" */}
@@ -105,34 +124,77 @@ function MainPage() {
         </div>
       </div>
 
-      {(!found)
-        ? discussions.map((thread) => (
-            <ThreadCard
-              key={thread.id}
-              threadId={thread.id}
-              authorName={thread.author}
-              title={thread.title}
-              content={thread.content|| ""}
-              anonymous={thread.anonymous}
-              commentCount={thread.comment_count}
-              thread_tag={thread.thread_tag}
-              createdTime={thread.created_at}
-            />
-          ))
-        : filteredDiscussions.map((thread) => (
-            <ThreadCard
-              key={thread.id}
-              threadId={thread.id}
-              authorName={thread.author}
-              title={thread.title}
-              content={thread.content|| ""}
-              anonymous={thread.anonymous}
-              commentCount={thread.comment_count}
-              thread_tag={thread.thread_tag}
-              createdTime={thread.created_at}
-            />
-          ))}
-          
+      {currentThreads.map((thread) => (
+        <ThreadCard
+          key={thread.id}
+          threadId={thread.id}
+          authorName={thread.author}
+          title={thread.title}
+          content={thread.content || ""}
+          anonymous={thread.anonymous}
+          commentCount={thread.comment_count}
+          thread_tag={thread.thread_tag}
+          createdTime={thread.created_at}
+        />
+      ))}
+
+      {/* Pagination */}
+      <Pagination className="mt-4" aria-label="pagination">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationLink
+              className="mx-1"
+              onClick={() => setCurrentPage(1)}
+              disabled={currentPage === 1}
+            >
+              {"<<"}
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationPrevious
+            className="mx-1"
+            onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </PaginationPrevious>
+          {/* Page Numbers */}
+          {pageNumbers.map((number, index) => {
+            // Show only 5 page numbers at a time, centered around the current page
+            const startPage = Math.max(currentPage - 2, 1);
+            const endPage = Math.min(startPage + 4, totalPages);
+            if (index >= startPage - 1 && index <= endPage - 1) {
+              return (
+                <PaginationItem key={number}>
+                  <PaginationLink
+                    className={`mx-1 ${currentPage === number ? 'bg-gray-300' : ''}`}
+                    onClick={() => setCurrentPage(number)}
+                  >
+                    {number}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            }
+            return null;
+          })}
+          <PaginationNext
+            className="mx-1"
+            onClick={() => setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages))}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </PaginationNext>
+          <PaginationItem>
+            <PaginationLink
+              className="mx-1"
+              onClick={() => setCurrentPage(totalPages)}
+              disabled={currentPage === totalPages}
+            >
+              {'>>'}
+            </PaginationLink>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+
           <FormDialog isOpen={isFormOpen} onClose={closeFormDialog} onSubmit={handleSubmit} />
           {/* {isAdmin && (
             <ReportList/>
