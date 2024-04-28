@@ -1,28 +1,11 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Capaian from "./Capaian";
 import { Button } from "../ui/button";
 import { getAuthenticatedUser } from "@edx/frontend-platform/auth"
 
-
-interface Course {
-  course_name: string;
-  enrollment_date: string; // Assuming date is handled as a string
-}
-
-interface FriendCourse {
-  friend_id: number;
-  friend_username: string;
-  friend_meta: string;
-  courses: Course[];
-}
-
-interface FriendsCoursesResponse {
-  friendsCourses: FriendCourse[];
-}
-
 const TimelineLayout = () => {
-  const [friendsCourses, setFriendsCourses] = useState<FriendCourse[]>([]);
+  const [friendsCourses, setFriendsCourses] = useState([]);
 
   const fetchCourses = async () => {
     const authenticatedUser = getAuthenticatedUser();
@@ -34,7 +17,7 @@ const TimelineLayout = () => {
     const username = authenticatedUser.username;
     try {
       const response = await fetch(`http://194.233.93.124:3030/teman/friends-timeline/${username}`);
-      const data: FriendsCoursesResponse = await response.json();
+      const data = await response.json();
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -45,13 +28,11 @@ const TimelineLayout = () => {
     }
   };
 
-  // Use effect to trigger the initial data fetch
   useEffect(() => {
     fetchCourses();
-  }, []);  // Empty dependency array ensures this runs once on mount
+  }, []);
 
-
-  const formatDate = (dateString: string): string => {
+  const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   };
@@ -60,14 +41,14 @@ const TimelineLayout = () => {
     <div className="flex">
       <div className="flex-1 text-left mx-auto p-4">
         <h1 className="text-4xl font-semibold mb-5">Timeline</h1>
-        {friendsCourses.map((friend: FriendCourse) => (
-          friend.courses.map((course: Course, index: number) => (
+        {friendsCourses.map((friend, index) => (
+          friend.courses.map((course, idx) => (
             <Capaian
-              key={index}
+              key={idx}
               nama={friend.friend_username}
-              enrollment_date={formatDate(course.enrollment_date)}  // Assuming a static date here, replace with dynamic data if available
+              enrollment_date={formatDate(course.enrollment_date)}
               course_name={course.course_name}
-              meta={friend.friend_meta || 'https://via.placeholder.com/150'} // Default image if no meta
+              meta={friend.friend_meta || 'https://via.placeholder.com/150'}
             />
           ))
         ))}
