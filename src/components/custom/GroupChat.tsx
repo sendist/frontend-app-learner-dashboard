@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Link } from "react-router-dom";
 import { AppContext } from "@edx/frontend-platform/react";
 import { reduxHooks } from "hooks";
-import FormDialog from "../custom/FormDialog";
+import FormDialog from "../Discussion/FormDialog";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../ui/button";

@@ -25,9 +25,9 @@ import Dashboard from "./Dashboard";
 import "./index.css";
 import NoticesWrapper from "./components/NoticesWrapper";
 
-import Discussion from "./components/custom/Discussion";
-import ThreadList from "./components/custom/ThreadList";
-import ReportList from "./components/custom/ReportList";
+import Discussion from "./components/Discussion/Discussion";
+import ThreadList from "./components/Discussion/ThreadList";
+import ReportList from "./components/Discussion/ReportList";
 import GroupChat from "./components/custom/GroupChat";
 import DiscordChannel from "./components/custom/DiscordChannel";
 import { DiscussionProvider } from "./DiscussionContext";
