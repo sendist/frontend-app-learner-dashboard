@@ -1,26 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import handIcon from "../../../assets/waving_hand.svg";
+import searchIcon from "../../../assets/search.svg";
+import menuIcon from "../../../assets/menu_icon.svg";
+import infoIcon from "../../../assets/info.svg";
 
-import { Card } from '@edx/paragon';
+import { Card } from "@edx/paragon";
 
-import { useIsCollapsed } from './hooks';
-import CourseCardBanners from './components/CourseCardBanners';
-import CourseCardImage from './components/CourseCardImage';
-import CourseCardMenu from './components/CourseCardMenu';
-import CourseCardActions from './components/CourseCardActions';
-import CourseCardDetails from './components/CourseCardDetails';
-import CourseCardTitle from './components/CourseCardTitle';
+import { useIsCollapsed } from "./hooks";
+import CourseCardBanners from "./components/CourseCardBanners";
+import CourseCardImage from "./components/CourseCardImage";
+import CourseCardMenu from "./components/CourseCardMenu";
+import CourseCardActions from "./components/CourseCardActions";
+import CourseCardDetails from "./components/CourseCardDetails";
+import CourseCardTitle from "./components/CourseCardTitle";
 
-export const CourseCard = ({
-  cardId,
-}) => {
+export const CourseCard = ({ cardId }) => {
   const isCollapsed = useIsCollapsed();
-  const orientation = isCollapsed ? 'vertical' : 'horizontal';
+  const orientation = isCollapsed ? "vertical" : "horizontal";
   return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
       <Card orientation={orientation}>
         <div className="d-flex flex-column w-100">
-          <div {...(!isCollapsed && { className: 'd-flex' })}>
+          <div {...(!isCollapsed && { className: "d-flex" })}>
             <CourseCardImage cardId={cardId} orientation="horizontal" />
             <Card.Body>
               <Card.Header

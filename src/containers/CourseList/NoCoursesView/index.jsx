@@ -41,29 +41,14 @@ export const NoCoursesView = () => {
   return (
     <div className="flex flex-col lg:flex-row-reverse">
       {" "}
-      {/* Container utama dengan flexbox */}
       <div className="lg:w-80 lg:mr-4 mt-10 lg:mt-0">
         {" "}
-        {/* Container untuk Timeline Belajar, disesuaikan dengan ukuran di desktop */}
-        <div className="flex flex-col items-center h-full mt-2">
-          {/* <img
-                        src={addJadwal}
-                        alt="Add Jadwal"
-                        className="h-24 mb-3"
-                    /> */}
-          {/* <h2 className="text-sm font-semibold text-gray-500">Belum ada jadwal belajar</h2> */}
-          {/* <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-xl text-xs mt-3">
-                        Tambah Jadwal Belajar
-                    </button> */}
-        </div>
-        {/* Isi dari Timeline Belajar akan dimasukkan di sini */}
+        <div className="flex flex-col items-center h-full mt-2"></div>
       </div>
       <div className="flex-1 text-left mx-auto p-2 lg:order-2">
         {" "}
-        {/* Bagian konten */}
         <div className="flex items-center">
           {" "}
-          {/* Container untuk teks dan handicon */}
           <h1 className="text-4xl font-semibold mt-2 mr-3">Selamat Datang!</h1>
           <img src={handIcon} alt="Hand Icon" className="h-9 mt-0" />
         </div>
@@ -72,16 +57,13 @@ export const NoCoursesView = () => {
         </div>
         <div className="grid grid-cols-1 gap-2 mt-2">
           {" "}
-          {/* Grid container untuk menempatkan card di bawah */}
           <div style={{ width: "904px", height: "568px" }}>
             {" "}
-            {/* Container card dengan lebar dan tinggi yang ditentukan */}
             <div
               className="bg-gray-100  rounded-lg p-4"
               style={{ height: "100%" }}
             >
               {" "}
-              {/* Card Container */}
               <div className="flex justify-between items-center mb-3">
                 <h3 className="text-xl font-semibold mr-3">Courses</h3>
                 <div className="relative">

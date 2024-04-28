@@ -25,7 +25,7 @@ const CardCatatan: React.FC<{
   loggedInAccountId: number;
 }> = ({ catatan, toggleNotepad, loggedInAccountId }) => {
   return (
-    <Card className="w-[300px]" onClick={() => toggleNotepad("GET", catatan)}>
+    <Card className="w-[265px]" onClick={() => toggleNotepad("GET", catatan)}>
       <CardHeader>
         <CardTitle className="text-left text-lg font-bold flex justify-between">
           <div className="overflow-hidden h-[48px] leading-tight line-clamp-2">
@@ -64,7 +64,7 @@ const CardCatatan: React.FC<{
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <div className="flex justify-start items-center">
+        <div className="justify-start">
           {catatan.catatanbelajar_tag?.map(
             (tag) => (
               console.log(tag),
