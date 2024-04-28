@@ -102,12 +102,10 @@ subscribe(APP_READY, () => {
               <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
               <Route path="/my-quiz/:userId" element={<MyQuiz />} />
               <Route path="studynotes" element={<CatatanLayout />} />
-              <Route path="reports" element={<div>Reports Component</div>} />
               <Route path="findfriends" element={<Outlet />}>
                 <Route index element={<LayoutRekomendasiTeman />} />
                 <Route path="timeline" element={<TimelineLayout />} />
               </Route>
-              <Route path="settings" element={<div>Settings Component</div>} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="discussion" element={<ForumLayout />}>
