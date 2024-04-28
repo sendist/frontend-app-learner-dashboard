@@ -58,7 +58,7 @@ const ForumLayout = () => (
       <Sidebar />
       <div className="flex-1 text-left mx-auto p-4">
         <App />
-        <h1 className="text-4xl font-semibold mb-5">Forum Diskusi</h1>
+        <h1 className="text-4xl font-semibold mb-5">Discussion Forum</h1>
         <Outlet />
       </div>
     </div>

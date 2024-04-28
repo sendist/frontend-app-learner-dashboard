@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -108,7 +108,7 @@ function ReportList() {
       {reports.map((report) => (
             <TableRow key={report.id}>
               <TableCell>{report.author}</TableCell>
-              <TableCell>{parse(report.content)}</TableCell>
+              <TableCell>{report.content ? parse(report.content) : report.content}</TableCell>
               <TableCell>{report.reportType}</TableCell>
               <TableCell>
               <Button className="bg-red-500 hover:bg-red-700" onClick={() => handleDelete(report.thread_id, report.comment_id, report.comment_reply_id)}>Delete</Button>

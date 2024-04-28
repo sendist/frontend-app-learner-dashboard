@@ -32,7 +32,7 @@ const DropdownDiscussion = ({
   const { authenticatedUser } = React.useContext(AppContext);
 
   const [isReportDialogOpen, setIsReportDialogOpen] = React.useState(false);
-  const { fetchDiscussionList, deleteComment, deleteCommentReply, deleteThread} = useDiscussion();
+  const { deleteComment, deleteCommentReply, deleteThread} = useDiscussion();
 
   const handleVerify = async () => {
     try {
