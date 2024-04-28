@@ -25,45 +25,45 @@ import Dashboard from "./Dashboard";
 import "./index.css";
 import NoticesWrapper from "./components/NoticesWrapper";
 
-import Discussion from "./components/custom/Discussion";
-import ThreadList from "./components/custom/ThreadList";
-import ReportList from "./components/custom/ReportList";
+import Discussion from "./components/Discussion/Discussion";
+import ThreadList from "./components/Discussion/ThreadList";
+import ReportList from "./components/Discussion/ReportList";
 import GroupChat from "./components/custom/GroupChat";
 import DiscordChannel from "./components/custom/DiscordChannel";
 import { DiscussionProvider } from "./DiscussionContext";
-import Sidebar from "./components/custom/Sidebar";
+import QuizKreatif from './components/custom/QuizKreatif';
+import TambahQuiz from './components/custom/TambahQuiz';
+import EditQuiz from './components/custom/EditQuiz';
+import MyQuiz from './components/custom/MyQuiz';
+import Sidebar from './components/custom/Sidebar';
 import LayoutRekomendasiTeman from "./components/custom/LayoutRekomendasiTeman";
 import TimelineLayout from "./components/custom/LayoutTimeline";
 import CatatanLayout from "./components/custom/LayoutCatatan";
 
-const Layout = () => {
-  return (
-    <div className="flex">
-      <div className="main-content">
+const Layout = () => (
+  <div className="flex">
+     <div className="main-content">
         <Sidebar />
         <div className="flex-1 text-left mx-auto p-4">
           <App />
           <Outlet />
         </div>
-      </div>
     </div>
-  );
-};
+  </div>
+);
 
-const ForumLayout = () => {
-  return (
-    <div className="flex">
-      <div className="main-content">
+const ForumLayout = () => (
+  <div className="flex">
+     <div className="main-content">
         <Sidebar />
         <div className="flex-1 text-left mx-auto p-4">
           <App />
-          <h1 className="text-4xl font-semibold mb-5">Forum Diskusi</h1>
+          <h1 className="text-4xl font-semibold mb-5">Discussion Forum</h1>
           <Outlet />
         </div>
-      </div>
     </div>
-  );
-};
+  </div>
+);
 
 const GroupChatLayout = () => {
   return (
@@ -86,6 +86,31 @@ subscribe(APP_READY, () => {
       <NoticesWrapper>
         <DiscussionProvider>
           <Routes>
+            <Route path="/" element={<PageWrap><Layout /></PageWrap>}>
+              <Route index element={<div>Dashboard Component</div>} />
+              <Route path="quiz" element={<QuizKreatif />} />
+              <Route path="/tambah-quiz" element={<TambahQuiz />} />
+              <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
+              <Route path="/my-quiz/:userId" element={<MyQuiz />} />
+              <Route
+                path="studynotes"
+                element={<div>Study Notes Component</div>}
+              />
+              <Route path="reports" element={<div>Reports Component</div>} />
+              <Route path="inbox" element={<div>Inbox Component</div>} />
+              <Route
+                path="findfriends"
+                element={<div>Find Friends Component</div>}
+              />
+              <Route path="settings" element={<div>Settings Component</div>} />
+            </Route>
+            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="discussion" element={<ForumLayout />}>
+              <Route index element={<ThreadList />} />{' '}
+              <Route path=":threadId" element={<Discussion />} />
+              <Route path="report-list" element={<ReportList />} />
+            </Route>
+          </Routes>
             <Route
               path=""
               element={
