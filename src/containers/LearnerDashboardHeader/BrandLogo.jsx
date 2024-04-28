@@ -12,7 +12,8 @@ export const BrandLogo = () => {
   const dashboard = reduxHooks.useEnterpriseDashboardData();
 
   return (
-    <a href={dashboard?.url || '/'} className="mx-auto" />
+    <a href={dashboard?.url || '/'} className="mx-auto">
+    </a>
   );
 };
 
