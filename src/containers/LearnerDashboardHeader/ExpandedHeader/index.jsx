@@ -13,6 +13,7 @@ import AuthenticatedUserDropdown from './AuthenticatedUserDropdown';
 import { useIsCollapsed, findCoursesNavClicked } from '../hooks';
 import messages from '../messages';
 import BrandLogo from '../BrandLogo';
+import './index.scss'
 
 export const ExpandedHeader = () => {
   const { formatMessage } = useIntl();

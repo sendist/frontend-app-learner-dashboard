@@ -35,8 +35,8 @@ export const DashboardLayout = ({ children, sidebar: Sidebar }) => {
     : columnConfig.courseList.noSidebar;
 
   return (
-    <Container fluid size="xl">
-      <Row>
+    <Container fluid size="xl" className="container">
+      <Row className="row">
         <Col {...courseListColumnProps} className="course-list-column">
           {children}
         </Col>
@@ -45,9 +45,9 @@ export const DashboardLayout = ({ children, sidebar: Sidebar }) => {
           <Sidebar setSidebarShowing={setSidebarShowing} />
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <WidgetFooter />
+      <Row className="row">
+        <Col className="widget-footer">
+          {/* <WidgetFooter /> */}
         </Col>
       </Row>
     </Container>

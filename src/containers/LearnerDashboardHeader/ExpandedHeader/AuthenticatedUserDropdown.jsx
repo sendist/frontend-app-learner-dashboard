@@ -55,6 +55,7 @@ export const AuthenticatedUserDropdown = () => {
           <Dropdown.Item href={`${getConfig().ACCOUNT_PROFILE_URL}/u/${authenticatedUser.username}`}>
             {formatMessage(messages.profile)}
           </Dropdown.Item>
+          <Dropdown.Divider />
           <Dropdown.Item href={getConfig().ACCOUNT_SETTINGS_URL}>
             {formatMessage(messages.account)}
           </Dropdown.Item>
