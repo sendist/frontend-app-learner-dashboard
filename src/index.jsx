@@ -30,9 +30,9 @@ import App from './App';
 import './index.css';
 import NoticesWrapper from './components/NoticesWrapper';
 
-import Discussion from './components/custom/Discussion';
-import ThreadList from './components/custom/ThreadList';
-import ReportList from './components/custom/ReportList';
+import Discussion from './components/Discussion/Discussion';
+import ThreadList from './components/Discussion/ThreadList';
+import ReportList from './components/Discussion/ReportList';
 import { DiscussionProvider } from './DiscussionContext';
 import QuizKreatif from './components/custom/QuizKreatif';
 import TambahQuiz from './components/custom/TambahQuiz';

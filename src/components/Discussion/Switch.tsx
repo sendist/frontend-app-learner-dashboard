@@ -13,7 +13,7 @@ const Switch: React.FC<{ checked: boolean; onChange: (checked: boolean) => void 
       aria-checked={checked}
     >
       <div
-        className={`absolute left-0 top-0 w-6 h-6 bg-white rounded-full transition-transform duration-200 transform ${checked ? 'translate-x-full' : 'translate-x-0'}`}
+        className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 transform ${checked ? 'translate-x-full' : 'translate-x-0'}`}
       />
     </div>
   );

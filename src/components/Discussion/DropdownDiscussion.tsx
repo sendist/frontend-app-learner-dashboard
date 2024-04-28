@@ -1,11 +1,8 @@
 import React from "react";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
@@ -32,10 +29,10 @@ const DropdownDiscussion = ({
   path,
   id,
 }: DropdownDiscussionProps) => {
-  const [isReportDialogOpen, setIsReportDialogOpen] = React.useState(false);
-  const { discussions, fetchDiscussionList } = useDiscussion();
-
   const { authenticatedUser } = React.useContext(AppContext);
+
+  const [isReportDialogOpen, setIsReportDialogOpen] = React.useState(false);
+  const { fetchDiscussionList, deleteComment, deleteCommentReply, deleteThread} = useDiscussion();
 
   const handleVerify = async () => {
     try {
@@ -62,28 +59,28 @@ const DropdownDiscussion = ({
     }
   };
 
+  const handleDeleteComment = async () => {
+    deleteComment(id);
+  }
+
+  const handleDeleteCommentReply = async () => {
+    deleteCommentReply(id);
+  }
+
+  const handleDeleteThread = async () => {
+    deleteThread(id);
+  }
+
   const handleDelete = async () => {
-    try {
-      const response = await fetch(
-        `http://194.233.93.124:3030/discussion${path}/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: authenticatedUser.username,
-          }),
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      fetchDiscussionList();
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Error deleting comment:", error);
+    if (path === "/comment") {
+      handleDeleteComment();
+      return;
+    } else if (path === "/comment-reply") {
+      handleDeleteCommentReply();
+      return;
+    } else if (path === "") {
+      handleDeleteThread();
+      return;
     }
   };
 

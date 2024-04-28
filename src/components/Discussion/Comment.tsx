@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState} from "react";
 import moment from "moment";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import DropdownDiscussion from "./DropdownDiscussion";
 import { Button } from "../ui/button";
 import Upvote from "./Upvote";
 import parse from "html-react-parser";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import RichTextEditor from "./RichTextEditor";
 import CommentReply from "./CommentReply";
-import Switch from "./Switch"; 
+import Switch from "./Switch";
 import { Label } from "../ui/label";
+import { useDiscussion } from "../../DiscussionContext";
 import { AppContext } from '@edx/frontend-platform/react';
+import React from "react";
 
 interface CommentProps {
   id: number;
@@ -21,6 +22,7 @@ interface CommentProps {
   verified: boolean;
   upvote: number;
   created_at: string;
+  comment_reply: any[];
 }
 
 const Comment = ({
@@ -32,14 +34,15 @@ const Comment = ({
   verified,
   upvote,
   created_at,
+  comment_reply,
 }: CommentProps) => {
   const [isVerified, setIsVerified] = useState(verified);
   const [showReply, setShowReply] = useState(false);
   const [replyContent, setReplyContent] = useState("");
-  const [commentReplies, setCommentReplies] = useState<CommentProps[]>([]);
-  const [anonymousMode, setAnonymousMode] = useState(false); // State for Anonymous Mode
+  const [anonymousMode, setAnonymousMode] = useState(false);
   const timeAgo = moment(created_at).fromNow();
   const { authenticatedUser } = React.useContext(AppContext);
+  const { createCommentReply } = useDiscussion();
 
   const handleReply = () => {
     setShowReply(true);
@@ -51,55 +54,10 @@ const Comment = ({
   };
 
   const handleReplySubmit = async () => {
-    try {
-      const response = await fetch(`http://194.233.93.124:3030/discussion/${id}/reply`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: authenticatedUser.username,
-          author: authenticatedUser.name ? authenticatedUser.name : authenticatedUser.username,
-          content: replyContent, // Mengambil dari replyContent di state
-          anonymous: anonymousMode, // Menggunakan nilai anonymousMode
-          verified: false
-        }),
-      });
-  
-      console.log("Reply response:", response);
-  
-      if (response.ok) {
-        const newCommentReply = await response.json();
-        setCommentReplies([...commentReplies, newCommentReply]);
-        setShowReply(false);
-        setReplyContent("");
-      } else {
-        console.error("Failed to add comment reply:", response.statusText);
-        // Menampilkan pesan error kepada pengguna atau melakukan penanganan yang sesuai
-      }
-    } catch (error) {
-      console.error("Error adding comment reply:", error.message);
-      // Menampilkan pesan error kepada pengguna atau melakukan penanganan yang sesuai
-    }
+    createCommentReply(replyContent, anonymousMode, id);
+    setShowReply(false);
+    setReplyContent("");
   };
-
-  useEffect(() => {
-    const getCommentRepliesFromDB = async () => {
-      try {
-        const response = await fetch(`http://194.233.93.124:3030/discussion/${id}/replies`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch comment replies");
-        }
-        const data = await response.json();
-        setCommentReplies(data);
-      } catch (error) {
-        console.error("Error fetching comment replies:", error.message);
-        // Menampilkan pesan error kepada pengguna atau melakukan penanganan yang sesuai
-      }
-    };
-
-    getCommentRepliesFromDB();
-  }, [id]);
 
   return (
     <>
@@ -139,8 +97,6 @@ const Comment = ({
       </section>
 
       <section className="ml-12 flex space-x-6 mb-4">
-      
-
         <div className="flex place-items-center">
           <button
             onClick={handleReply}
@@ -176,7 +132,11 @@ const Comment = ({
           </button>
         </div>
 
-        <Upvote commentId={id} user_id={authenticatedUser.username} upvote={upvote}/>
+        <Upvote
+          commentId={id}
+          user_id={authenticatedUser.username}
+          upvote={upvote}
+        />
       </section>
 
       {showReply && (
@@ -192,61 +152,47 @@ const Comment = ({
               </div>
             </div>
           </div>
-          <ReactQuill
-            theme="snow"
-            value={replyContent}
-            onChange={setReplyContent}
-            placeholder="Balas komentar ini..."
-            modules={{
-              toolbar: [
-                [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                ["bold", "italic", "underline", "strike", "blockquote"],
-                [{ list: "ordered" }, { list: "bullet" }],
-                [{ color: [] }, { background: [] }],
-                ["link", "image"],
-                ["code-block"],
-                ["clean"],
-              ],
-            }}
-            formats={[
-              "header",
-              "bold",
-              "italic",
-              "underline",
-              "strike",
-              "blockquote",
-              "list",
-              "bullet",
-              "indent",
-              "link",
-              "image",
-              "color",
-              "background",
-              "code-block",
-            ]}
-          />
-          <div className="flex justify-between mt-4">
-          <div className="flex items-center space-x-2">
-            <div className="relative flex items-center ">
-              <Switch checked={anonymousMode} onChange={setAnonymousMode} /> {/* Switch for Anonymous Mode */}
-              <Label htmlFor="anonymous-mode" className="ml-2 cursor-pointer">Anonymous Mode</Label>
-            </div>
+          <div>
+            {/* Menggunakan RichTextEditor */}
+            <RichTextEditor
+              value={replyContent}
+              onChange={setReplyContent}
+              placeholder="Add your comment..."
+              descriptionText="Add your comment here. Max. 500 Characters"
+              containerWidth="100vw" // Set containerWidth based on dialogWidth
+            />
           </div>
-          <div className="flex">
-          <Button
-            onClick={handleReplySubmit}
-            className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md">
-            Balas
-          </Button>
-            <Button onClick={handleCancelReply} variant="secondary" className="ml-2">Batal</Button>
-            
+          <div className="flex justify-between mt-4">
+            <div className="flex items-center space-x-2">
+              <div className="relative flex items-center ">
+                <Switch checked={anonymousMode} onChange={setAnonymousMode} />{" "}
+                {/* Switch for Anonymous Mode */}
+                <Label htmlFor="anonymous-mode" className="ml-2 cursor-pointer">
+                  Anonymous Mode
+                </Label>
+              </div>
+            </div>
+            <div className="flex">
+              <Button
+                onClick={handleReplySubmit}
+                className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md"
+              >
+                Balas
+              </Button>
+              <Button
+                onClick={handleCancelReply}
+                variant="secondary"
+                className="ml-2"
+              >
+                Batal
+              </Button>
             </div>
           </div>
         </section>
       )}
 
       {/* Render Comment Replies */}
-      {commentReplies.map((reply) => (
+      {comment_reply && comment_reply.map((reply) => (
         <CommentReply
           key={reply.id}
           id={reply.id}
