@@ -1,30 +1,25 @@
-import React from 'react';
+import React from "react";
 
-import { useIntl } from '@edx/frontend-platform/i18n';
-import { Pagination } from '@edx/paragon';
+import { useIntl } from "@edx/frontend-platform/i18n";
+import { Pagination } from "@edx/paragon";
 
-import { reduxHooks } from 'hooks';
+import { reduxHooks } from "hooks";
 import {
   ActiveCourseFilters,
   CourseFilterControls,
-} from 'containers/CourseFilterControls';
-import CourseCard from 'containers/CourseCard';
-import NoCoursesView from './NoCoursesView';
+} from "containers/CourseFilterControls";
+import CourseCard from "containers/CourseCard";
+import NoCoursesView from "./NoCoursesView";
 
-import { useCourseListData, useIsCollapsed } from './hooks';
+import { useCourseListData, useIsCollapsed } from "./hooks";
 
-import messages from './messages';
+import messages from "./messages";
 
 export const CourseList = () => {
   const { formatMessage } = useIntl();
   const hasCourses = reduxHooks.useHasCourses();
-  const {
-    filterOptions,
-    setPageNumber,
-    numPages,
-    showFilters,
-    visibleList,
-  } = useCourseListData();
+  const { filterOptions, setPageNumber, numPages, showFilters, visibleList } =
+    useCourseListData();
   const isCollapsed = useIsCollapsed();
   return (
     <div className="course-list-container">
@@ -34,32 +29,31 @@ export const CourseList = () => {
           <CourseFilterControls {...filterOptions} />
         </div> */}
       </div>
-      {hasCourses
-        ? (
-          <>
-            {showFilters && (
-              <div id="course-list-active-filters-container">
-                <ActiveCourseFilters {...filterOptions} />
-              </div>
-            )}
-            <div className="d-flex flex-column flex-grow-1">
-              {visibleList.map(({ cardId }) => (
-                <CourseCard key={cardId} cardId={cardId} />
-              ))}
-              {numPages > 1 && (
-                <Pagination
-                  variant={isCollapsed ? 'reduced' : 'secondary'}
-                  paginationLabel="Course List"
-                  className="mx-auto mb-2"
-                  pageCount={numPages}
-                  onPageSelect={setPageNumber}
-                />
-              )}
+      {hasCourses ? (
+        <>
+          {showFilters && (
+            <div id="course-list-active-filters-container">
+              <ActiveCourseFilters {...filterOptions} />
             </div>
-          </>
-        ) : (
-          <NoCoursesView />
-        )}
+          )}
+          <div className="d-flex flex-column flex-grow-1">
+            {visibleList.map(({ cardId }) => (
+              <CourseCard key={cardId} cardId={cardId} />
+            ))}
+            {numPages > 1 && (
+              <Pagination
+                variant={isCollapsed ? "reduced" : "secondary"}
+                paginationLabel="Course List"
+                className="mx-auto mb-2"
+                pageCount={numPages}
+                onPageSelect={setPageNumber}
+              />
+            )}
+          </div>
+        </>
+      ) : (
+        <NoCoursesView />
+      )}
     </div>
   );
 };

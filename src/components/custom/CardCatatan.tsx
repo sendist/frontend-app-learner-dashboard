@@ -26,7 +26,7 @@ const CardCatatan: React.FC<{
 }> = ({ catatan, toggleNotepad, loggedInAccountId }) => {
 
   return (
-    <Card className="w-[300px]" onClick={() => toggleNotepad("GET", catatan)}>
+    <Card className="w-[265px]" onClick={() => toggleNotepad("GET", catatan)}>
       <CardHeader>
         <CardTitle className="text-left text-lg font-bold flex justify-between">
           <div className="overflow-hidden h-[48px] leading-tight line-clamp-2">
@@ -62,12 +62,19 @@ const CardCatatan: React.FC<{
       </CardContent>
       <CardFooter className="flex justify-between">
         <div className="justify-start">
-          {catatan.catatanbelajar_tag?.map(tag => (
-            console.log(tag),
-            <Badge key={tag.tag.nama_tag} className="bg-[#F9A682] text-[#B23E19] hover:bg-[#F9A682] hover:text-[#B23E19] rounded-md  mr-1">
-              {tag.tag.nama_tag}
-            </Badge>
-          ))}
+          {catatan.catatanbelajar_tag?.map(
+            (tag) => (
+              console.log(tag),
+              (
+                <Badge
+                  key={tag.tag.nama_tag}
+                  className="bg-[#F9A682] text-[#B23E19] hover:bg-[#F9A682] hover:text-[#B23E19] rounded-md  mr-1"
+                >
+                  {tag.tag.nama_tag}
+                </Badge>
+              )
+            )
+          )}
         </div>
         <div className="flex items-center">
           {loggedInAccountId === catatan.id_akun &&  (
