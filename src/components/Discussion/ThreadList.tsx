@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Link } from "react-router-dom";
-import ThreadCard from "../custom/ThreadCard";
-import FormDialog from "../custom/FormDialog";
+import ThreadCard from "./ThreadCard";
+import FormDialog from "./FormDialog";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useDiscussion } from "../../DiscussionContext";
@@ -20,8 +20,8 @@ interface ThreadProps {
   created_at: string;
   thread_tag: {
     tag: {
-      id: string;
-      name: string;
+      id: number;
+      nama_tag: string;
     }
   }[];
 }
@@ -35,7 +35,7 @@ function MainPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const { authenticatedUser } = React.useContext(AppContext);
-  console.log(authenticatedUser);
+  const isAdmin = authenticatedUser.administrator;
 
   const handleSearch = () => {
     if (searchQuery.trim() !== "") {
@@ -92,9 +92,9 @@ function MainPage() {
           >
             Cari
           </Button>
-          {authenticatedUser.administrator && (
+          {isAdmin && (
             <div className="ml-3">
-              <Link to="/discussion/report-list">
+              <Link to="/report-list">
                 <Button className="bg-[#38B0AB] hover:bg-teal-700">
                   Daftar Report
                 </Button>
@@ -106,7 +106,7 @@ function MainPage() {
       </div>
 
       {(!found)
-        ? discussions.map((thread : ThreadProps) => (
+        ? discussions.map((thread) => (
             <ThreadCard
               key={thread.id}
               threadId={thread.id}
