@@ -153,6 +153,7 @@ const Notepad: React.FC<NotepadProps> = ({
       </Button>
     );
   }
+  return null;
 };
 
 export default Notepad;
