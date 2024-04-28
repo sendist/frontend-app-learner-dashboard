@@ -135,6 +135,13 @@ const QuizKreatif = () => {
         }
     };
 
+    const handleStartQuiz = (quizLink) => {
+        if (!quizLink.startsWith('http://') && !quizLink.startsWith('https://')) {
+            quizLink = 'https://' + quizLink;
+        }
+        window.open(quizLink, "_blank");
+    };
+
     useEffect(() => {
         getAllQuiz();
         getAllTag();
@@ -304,7 +311,7 @@ const QuizKreatif = () => {
                                                 ))}
                                             </div>
                                             <div className="mt-5 flex gap-2 justify-between w-full">
-                                                <button className="bg-teal-500 hover:bg-teal-700 text-white font-base text-md py-1 px-14 rounded">
+                                                <button className="bg-teal-500 hover:bg-teal-700 text-white font-base text-md py-1 px-14 rounded" onClick={() => handleStartQuiz(quiz.link)}>
                                                     Mulai Quiz
                                                 </button>
                                                 <div className="flex">
