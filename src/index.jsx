@@ -25,12 +25,16 @@ import Dashboard from "./Dashboard";
 import "./index.css";
 import NoticesWrapper from "./components/NoticesWrapper";
 
-import Discussion from "./components/custom/Discussion";
-import ThreadList from "./components/custom/ThreadList";
-import ReportList from "./components/custom/ReportList";
+import Discussion from "./components/Discussion/Discussion";
+import ThreadList from "./components/Discussion/ThreadList";
+import ReportList from "./components/Discussion/ReportList";
 import GroupChat from "./components/custom/GroupChat";
 import DiscordChannel from "./components/custom/DiscordChannel";
 import { DiscussionProvider } from "./DiscussionContext";
+import QuizKreatif from './components/custom/QuizKreatif';
+import TambahQuiz from './components/custom/TambahQuiz';
+import EditQuiz from './components/custom/EditQuiz';
+import MyQuiz from './components/custom/MyQuiz';
 import Sidebar from "./components/custom/Sidebar";
 import LayoutRekomendasiTeman from "./components/custom/LayoutRekomendasiTeman";
 import TimelineLayout from "./components/custom/LayoutTimeline";
@@ -50,20 +54,18 @@ const Layout = () => {
   );
 };
 
-const ForumLayout = () => {
-  return (
-    <div className="flex">
-      <div className="main-content">
-        <Sidebar />
-        <div className="flex-1 text-left mx-auto p-4">
-          <App />
-          <h1 className="text-4xl font-semibold mb-5">Forum Diskusi</h1>
-          <Outlet />
-        </div>
+const ForumLayout = () => (
+  <div className="flex">
+    <div className="main-content">
+      <Sidebar />
+      <div className="flex-1 text-left mx-auto p-4">
+        <App />
+        <h1 className="text-4xl font-semibold mb-5">Discussion Forum</h1>
+        <Outlet />
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 const GroupChatLayout = () => {
   return (
@@ -87,7 +89,7 @@ subscribe(APP_READY, () => {
         <DiscussionProvider>
           <Routes>
             <Route
-              path=""
+              path="/"
               element={
                 <PageWrap>
                   <Layout />
@@ -95,18 +97,19 @@ subscribe(APP_READY, () => {
               }
             >
               <Route index element={<Dashboard />} />
-              <Route path="quiz" element={<div>Quiz Component</div>} />
+              <Route path="quiz" element={<QuizKreatif />} />
+              <Route path="/tambah-quiz" element={<TambahQuiz />} />
+              <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
+              <Route path="/my-quiz/:userId" element={<MyQuiz />} />
               <Route path="studynotes" element={<CatatanLayout />} />
-              <Route path="reports" element={<div>Reports Component</div>} />
               <Route path="findfriends" element={<Outlet />}>
                 <Route index element={<LayoutRekomendasiTeman />} />
                 <Route path="timeline" element={<TimelineLayout />} />
               </Route>
-              <Route path="settings" element={<div>Settings Component</div>} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="discussion" element={<ForumLayout />}>
-              <Route index element={<ThreadList />} />{" "}
+              <Route index element={<ThreadList />} />{' '}
               <Route path=":threadId" element={<Discussion />} />
               <Route path="report-list" element={<ReportList />} />
             </Route>

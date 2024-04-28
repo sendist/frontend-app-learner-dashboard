@@ -24,6 +24,7 @@ const CardCatatan: React.FC<{
   toggleNotepad: (newMethod?: MethodType, newCatatanData?: CatatanData) => void;
   loggedInAccountId: number;
 }> = ({ catatan, toggleNotepad, loggedInAccountId }) => {
+
   return (
     <Card className="w-[265px]" onClick={() => toggleNotepad("GET", catatan)}>
       <CardHeader>
@@ -40,11 +41,7 @@ const CardCatatan: React.FC<{
         <div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-1.5">
             {catatan.gambar ? (
-              <img
-                src={catatan.gambar}
-                alt="Gambar Catatan"
-                className="h-28 w-auto object-cover"
-              />
+              <img src={catatan.gambar} alt="Gambar Catatan" className="h-28 w-auto object-cover" />
             ) : (
               <Label
                 htmlFor="name"
@@ -80,26 +77,25 @@ const CardCatatan: React.FC<{
           )}
         </div>
         <div className="flex items-center">
-          {loggedInAccountId === catatan.id_akun && (
-            <Button
-              className="w-6 h-6 p-0 text-xs border-2 border-[#E7EAE9]"
-              variant="ghost"
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleNotepad("PUT", catatan);
-              }}
-            >
-              <FontAwesomeIcon icon={faPenToSquare} color="#38B0AB" />
-            </Button>
+          {loggedInAccountId === catatan.id_akun &&  (
+              <Button
+                className="w-6 h-6 p-0 text-xs border-2 border-[#E7EAE9]"
+                variant="ghost"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleNotepad("PUT", catatan);
+                }}
+              >
+                <FontAwesomeIcon icon={faPenToSquare} color="#38B0AB" />
+              </Button>
           )}
-          {(catatan.privasi === Privasi.PUBLIC ||
-            loggedInAccountId === catatan.id_akun) && (
-            <Button
-              className="mx-1 w-6 h-6 p-0 text-xs border-2 border-[#E7EAE9]"
-              variant="ghost"
-            >
-              <FontAwesomeIcon icon={faFileArrowDown} color="#38B0AB" />
-            </Button>
+          {(catatan.privasi === Privasi.PUBLIC || loggedInAccountId === catatan.id_akun)   &&  (
+              <Button
+                className="mx-1 w-6 h-6 p-0 text-xs border-2 border-[#E7EAE9]"
+                variant="ghost"
+              >
+                <FontAwesomeIcon icon={faFileArrowDown} color="#38B0AB" />
+              </Button>
           )}
         </div>
       </CardFooter>
