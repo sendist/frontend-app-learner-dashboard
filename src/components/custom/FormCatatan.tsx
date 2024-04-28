@@ -133,7 +133,7 @@ const FormCatatan: React.FC<FormCatatanProps> = ({
       }
 
       const response = await fetch(
-        `http://194.233.93.124:3030/api/catatanbelajar/${
+        `http://194.233.93.124:3030/catatanbelajar/${
           id_catatan ? id_catatan : ""
         }`,
         {
