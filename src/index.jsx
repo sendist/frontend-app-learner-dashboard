@@ -34,6 +34,7 @@ import { DiscussionProvider } from "./DiscussionContext";
 import Sidebar from "./components/custom/Sidebar";
 import LayoutRekomendasiTeman from "./components/custom/LayoutRekomendasiTeman";
 import TimelineLayout from "./components/custom/LayoutTimeline";
+import CatatanLayout from "./components/custom/LayoutCatatan";
 
 const Layout = () => {
   return (
@@ -95,10 +96,7 @@ subscribe(APP_READY, () => {
             >
               <Route index element={<Dashboard />} />
               <Route path="quiz" element={<div>Quiz Component</div>} />
-              <Route
-                path="studynotes"
-                element={<div>Study Notes Component</div>}
-              />
+              <Route path="studynotes" element={<CatatanLayout />} />
               <Route path="reports" element={<div>Reports Component</div>} />
               <Route path="findfriends" element={<Outlet />}>
                 <Route index element={<LayoutRekomendasiTeman />} />
