@@ -77,6 +77,7 @@ subscribe(APP_READY, () => {
               <Route path="/tambah-quiz" element={<TambahQuiz />} />
               <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
               <Route path="/my-quiz/:userId" element={<MyQuiz />} />
+              <Route path="report-list" element={<ReportList />} />
               <Route
                 path="studynotes"
                 element={<div>Study Notes Component</div>}
@@ -93,7 +94,6 @@ subscribe(APP_READY, () => {
             <Route path="discussion" element={<ForumLayout />}>
               <Route index element={<ThreadList />} />{' '}
               <Route path=":threadId" element={<Discussion />} />
-              <Route path="report-list" element={<ReportList />} />
             </Route>
           </Routes>
         </DiscussionProvider>

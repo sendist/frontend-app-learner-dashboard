@@ -74,6 +74,7 @@ function ReportList() {
           },
           body: JSON.stringify({
             userId: authenticatedUser.username,
+            isAdmin: authenticatedUser.administrator,
           }),
         }
       );
