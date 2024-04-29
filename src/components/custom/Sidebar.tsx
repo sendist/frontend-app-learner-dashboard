@@ -7,7 +7,7 @@ import studynotesIcon from "../../assets/studynotes-icon.svg";
 import disscussionIcon from "../../assets/discussion-icon.svg";
 import reportsIcon from "../../assets/reports-icon.svg";
 import inboxIcon from "../../assets/inbox-icon.svg";
-import findfriendsIcon from "../../assets/findfriends-icon.svg";
+import temanIcon from "../../assets/temanicon.svg";
 import settingsIcon from "../../assets/settings-icon.svg";
 
 interface IMenuItem {
@@ -22,10 +22,8 @@ const menuItems: IMenuItem[] = [
   { name: "Quiz", iconSrc: quizIcon, path: "/quiz" },
   { name: "Study Notes", iconSrc: studynotesIcon, path: "/studynotes" },
   { name: "Discussion Forum", iconSrc: disscussionIcon, path: "/discussion" },
-  { name: "Reports", iconSrc: reportsIcon, path: "/reports" },
-  { name: "Inbox", iconSrc: inboxIcon, path: "/inbox" },
-  { name: "Find Friends", iconSrc: findfriendsIcon, path: "/findfriends" },
-  { name: "Settings", iconSrc: settingsIcon, path: "/settings" },
+  { name: "Learning Partners", iconSrc: temanIcon, path: "/findfriends" },
+  { name: "Group Chat", iconSrc: inboxIcon, path: "/groupchat" },
 ];
 
 const Sidebar: React.FC = () => {

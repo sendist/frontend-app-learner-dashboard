@@ -1,0 +1,72 @@
+/* Header Styles */
+.learner-variant-header {
+    height: 100px; /* Increased header height */
+    padding: 0 20px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    color: #333; /* Text color */
+}
+
+/* Styles for the AuthenticatedUserDropdown component */
+.authenticated-user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+/* Styles for the dropdown items */
+.authenticated-user-dropdown .dropdown-item {
+    padding: 15px; /* Increased padding */
+    color: #333;
+    font-weight: bold; /* Bold font */
+    &:hover {
+        background-color: #f0f0f0;
+        font-weight: bold; /* Thicken the text on hover */
+    }
+}
+
+/* Media Query for responsiveness */
+@media screen and (max-width: 768px) {
+    .learner-variant-header {
+        padding: 0 10px;
+    }
+}
+
+/* Logo Style */
+.logo {
+    font-size: 24px; /* Larger font size */
+    font-weight: bold; /* Bold font */
+}
+
+/* Navigation Links Style */
+.nav-links {
+    list-style-type: none; /* Remove default list styles */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline-block; /* Display links horizontally */
+    margin-right: 20px; /* Add space between links */
+}
+
+.nav-links li:last-child {
+    margin-right: 0; /* Remove margin from last link */
+}
+
+.nav-links a {
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold font */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.nav-links a:hover {
+    color: #ffc107; /* Hover color */
+}

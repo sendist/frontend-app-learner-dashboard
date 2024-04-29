@@ -16,7 +16,6 @@ import {
   actions,
 } from 'data/redux';
 import { reduxHooks } from 'hooks';
-import Dashboard from 'containers/Dashboard';
 import ZendeskFab from 'components/ZendeskFab';
 import { ExperimentProvider } from 'ExperimentContext';
 
@@ -96,7 +95,7 @@ export const App = () => {
       <div>
         <AppWrapper>
           <LearnerDashboardHeader />
-          {/* <main>
+          <main>
             {hasNetworkFailure
               ? (
                 <Alert variant="danger">
@@ -104,10 +103,9 @@ export const App = () => {
                 </Alert>
               ) : (
                 <ExperimentProvider>
-                  <Dashboard />
                 </ExperimentProvider>
               )}
-          </main> */}
+          </main>
         </AppWrapper>
       </div>
     </>
