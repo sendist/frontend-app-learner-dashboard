@@ -311,7 +311,7 @@ const QuizKreatif = () => {
                                                 ))}
                                             </div>
                                             <div className="mt-5 flex gap-2 justify-between w-full">
-                                                <button className="bg-teal-500 hover:bg-teal-700 text-white font-base text-md py-1 px-14 rounded" onClick={() => handleStartQuiz(quiz.link)}>
+                                                <button className="bg-teal-500 hover:bg-teal-700 text-white font-base text-[13px] py-1 px-12 rounded" onClick={() => handleStartQuiz(quiz.link)}>
                                                     Mulai Quiz
                                                 </button>
                                                 <div className="flex">
