@@ -5,13 +5,13 @@ import { Button } from "../ui/button";
 import Temanbelajar from "./ListTeman"; // Make sure to use the correct import
 import { getAuthenticatedUser } from "@edx/frontend-platform/auth"
 
-const LayoutRekomendasiTeman = ({ username }) => {
+const LayoutRekomendasiTeman = () => {
   const [users, setUsers] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
 
   useEffect(() => {
     fetchUsers();
-  }, [username]);
+  }, []);
 
   const fetchUsers = async () => {
     const authenticatedUser = getAuthenticatedUser(); // Assumed synchronous for this example
@@ -43,28 +43,39 @@ const LayoutRekomendasiTeman = ({ username }) => {
   };
     
   const handleManageFollow = async (targetUsername) => {
-  const url = `http://194.233.93.124:3030/teman/follow`;
-  const headers = { 'Content-Type': 'application/json' };
-  const body = JSON.stringify({ username1: "sendist", username2: targetUsername });
+    const authenticatedUser = getAuthenticatedUser();
+    if (!authenticatedUser || !authenticatedUser.username) {
+      alert("Authentication is required to follow/unfollow.");
+      return;
+    }
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',  // Use POST but the backend decides the actual operation
-      headers,
-      body
-    });
-    const data = await response.json();
+    const username1 = authenticatedUser.username;
+    const username2 = targetUsername;
 
-    if (!response.ok) throw new Error(data.error || 'Unknown error');
+    const url = `http://194.233.93.124:3030/teman/follow`;
+    const headers = { 'Content-Type': 'application/json' };
+    const body = JSON.stringify({ username1, username2 });
 
-    // Update UI based on the backend response
-    alert(`Follow status for ${targetUsername} has been ${data.follow.is_follow ? 'initiated' : 'toggled'}.`);
-  } catch (error) {
-    console.error('Error managing follow status:', error.message);
-    alert(error.message);
-  }
-  fetchUsers();
-};
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Unknown error');
+
+      alert(`Follow status for ${targetUsername} has been ${data.follow.is_follow ? 'initiated' : 'toggled'}.`);
+      fetchUsers(); // Refresh the user list
+    } catch (error) {
+      console.error('Error managing follow status:', error.message);
+      alert(error.message);
+    }
+  };
+
+
+
 
   return (
     <div className="flex">
@@ -89,7 +100,7 @@ const LayoutRekomendasiTeman = ({ username }) => {
             meta={user.meta || 'https://via.placeholder.com/150'}
             isFollowed={user.is_follow}
             phone_number={user.phone_number}
-            onToggleFollow={() => handleManageFollow(user.username, user.is_follow)} // Placeholder for actual follow toggle logic
+            onToggleFollow={() => handleManageFollow(user.username)}// Placeholder for actual follow toggle logic
           />
         ))}
         <div className="mt-4">
