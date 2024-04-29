@@ -77,6 +77,9 @@ function ReportList() {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+      setReports((prevData) =>
+        prevData.filter((report) => (report.thread_id !== id && report.comment_id !== id && report.comment_reply_id !== id)
+      ));
       const data = await response.json();
     } catch (error) {
       console.error("Error deleting comment:", error);
@@ -105,7 +108,7 @@ function ReportList() {
             <TableRow key={report.id}>
               <TableCell>{report.author}</TableCell>
               <TableCell>{report.content ? parse(report.content) : report.content}</TableCell>
-              <TableCell>{report.reportType}</TableCell>
+              <TableCell>{report.report_type}</TableCell>
               <TableCell>
               <Button className="bg-red-500 hover:bg-red-700" onClick={() => handleDelete(report.thread_id, report.comment_id, report.comment_reply_id)}>Delete</Button>
               </TableCell>

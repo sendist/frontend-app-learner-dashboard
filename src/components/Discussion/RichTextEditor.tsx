@@ -65,9 +65,9 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, descri
         readOnly={contentLength >= 10000}
         
       />
-      {/* <p style={{ fontSize: "0.75rem", color: "#6b7280", marginTop: "0.25rem" }}>
-        {descriptionText} ({contentLength} / 10000)
-      </p> */}
+      <p style={{ fontSize: "0.75rem", color: "#6b7280", marginTop: "0.25rem" }}>
+        {descriptionText}
+      </p>
     </div>
   );
 };
