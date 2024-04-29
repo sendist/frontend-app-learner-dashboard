@@ -1,33 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import { useIntl } from "@edx/frontend-platform/i18n";
+import messages from "./messages";
 
-import { useIntl } from '@edx/frontend-platform/i18n';
-import {
-  ActionRow,
-  Button,
-} from '@edx/paragon';
-
-import messages from './messages';
-
-export const ConfirmPane = ({
-  handleClose,
-  handleConfirm,
-}) => {
+export const ConfirmPane = ({ handleClose, handleConfirm }) => {
   const { formatMessage } = useIntl();
   return (
     <>
-      <h4>{formatMessage(messages.confirmHeader)}</h4>
-      <ActionRow>
-        <Button variant="tertiary" onClick={handleClose}>
+      <h4 className="text-lg font-semibold">
+        {formatMessage(messages.confirmHeader)}
+      </h4>
+      <div className="flex justify-end space-x-2 mt-4">
+        {" "}
+        {/* Adjust margins and spacing as needed */}
+        <button
+          type="button"
+          className="bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300"
+          onClick={handleClose}
+        >
           {formatMessage(messages.confirmCancel)}
-        </Button>
-        <Button onClick={handleConfirm}>
+        </button>
+        <button
+          type="button"
+          className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700"
+          onClick={handleConfirm}
+        >
           {formatMessage(messages.confirmUnenroll)}
-        </Button>
-      </ActionRow>
+        </button>
+      </div>
     </>
   );
 };
+
 ConfirmPane.propTypes = {
   handleClose: PropTypes.func.isRequired,
   handleConfirm: PropTypes.func.isRequired,

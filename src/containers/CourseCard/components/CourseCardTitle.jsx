@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import track from 'tracking';
-import { reduxHooks } from 'hooks';
-import useActionDisabledState from './hooks';
+import track from "tracking";
+import { reduxHooks } from "hooks";
+import useActionDisabledState from "./hooks";
 
 const { courseTitleClicked } = track.course;
 
@@ -13,13 +13,15 @@ export const CourseCardTitle = ({ cardId }) => {
   const handleTitleClicked = reduxHooks.useTrackCourseEvent(
     courseTitleClicked,
     cardId,
-    homeUrl,
+    homeUrl
   );
   const { disableCourseTitle } = useActionDisabledState(cardId);
   return (
-    <h3>
+    <h3 className="text-lg font-semibold mb-1 overflow-hidden text-ellipsis">
       {disableCourseTitle ? (
-        <span className="course-card-title" data-testid="CourseCardTitle">{courseName}</span>
+        <span className="course-card-title" data-testid="CourseCardTitle">
+          {courseName}
+        </span>
       ) : (
         <a
           href={homeUrl}
