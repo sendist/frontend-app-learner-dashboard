@@ -3,9 +3,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Link } from "react-router-dom";
 import { AppContext } from "@edx/frontend-platform/react";
 import { reduxHooks } from "hooks";
-import FormDialog from "../custom/FormDialog";
+import FormDialog from "../Discussion/FormDialog";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "../ui/button";
 
 const GroupChat = () => {
   const { authenticatedUser } = useContext(AppContext);
@@ -73,7 +74,7 @@ const GroupChat = () => {
       <div className="flex justify-between items-center mb-5">
         <Button
           className="bg-[#38B0AB] hover:bg-teal-700 text-gray-100 px-4 py-2 rounded-md flex items-center"
-          onClick={console / log()}
+          onClick={() => console.log("Button clicked")}
         >
           <FontAwesomeIcon icon={faPlus} className="mr-2 text-lg" />
           Tambah

@@ -1,18 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { useIntl } from '@edx/frontend-platform/i18n';
-import {
-  ActionRow,
-  Button,
-} from '@edx/paragon';
+import { useIntl } from "@edx/frontend-platform/i18n";
+import { ActionRow } from "@edx/paragon";
+import { Button } from "../../../components/ui/button";
 
-import messages from './messages';
+import messages from "./messages";
 
-export const FinishedPane = ({
-  gaveReason,
-  handleClose,
-}) => {
+export const FinishedPane = ({ gaveReason, handleClose }) => {
   const { formatMessage } = useIntl();
   return (
     <>
@@ -22,7 +17,9 @@ export const FinishedPane = ({
         {formatMessage(messages.finishText)}
       </p>
       <ActionRow>
-        <Button onClick={handleClose}>{formatMessage(messages.finishReturn)}</Button>
+        <Button onClick={handleClose}>
+          {formatMessage(messages.finishReturn)}
+        </Button>
       </ActionRow>
     </>
   );
