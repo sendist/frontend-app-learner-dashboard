@@ -40,14 +40,12 @@ function ReportList() {
       const data = await response.json();
 
       setReports(data);
-      console.log('Report data fetched:', data);
     } catch (error) {
       console.error('Error fetching report data:', error);
     }
   };
 
   const handleDelete = async (threadId: number, commentId: number, commentReplyId: number) => {
-    console.log("parameter:", threadId, commentId, commentReplyId);
     try {
       let path = "";
       let id = null;
@@ -62,8 +60,6 @@ function ReportList() {
      path="";
      id = threadId 
     }
-    console.log("path:", path);
-    console.log("id:", id);
   
       const response = await fetch(
         `http://194.233.93.124:3030/discussion${path}/${id}`,
@@ -82,7 +78,6 @@ function ReportList() {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      console.log("Report successfully deleted:", data);
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
