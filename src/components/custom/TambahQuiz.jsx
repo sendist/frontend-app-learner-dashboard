@@ -164,10 +164,10 @@ const TambahQuiz = () => {
                                 </div>
                                 <div className="mb-6">
                                     <label htmlFor="userId" className="block text-gray-700 text-sm font-bold mb-2">
-                                        Jumlah Quiz
+                                        Jumlah Soal Dalam Quiz
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         id="userId"
                                         value={jumlahSoal}
                                         onChange={e => setJumlahSoal(e.target.value)}

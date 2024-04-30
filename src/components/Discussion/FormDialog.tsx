@@ -115,7 +115,7 @@ const FormDialog: React.FC<FormDialogProps> = ({ isOpen, onClose, onSubmit }) =>
                   setFormData({ ...formData, content: value })
                 }
                 placeholder=""
-                descriptionText="Uraikan pertanyaan anda disini. Anda juga dapat menambahkan kode, gambar dan lainnya untuk memperjelas pertanyaan. Min. 500 karakter."
+                descriptionText="Uraikan pertanyaan anda disini. Anda juga dapat menambahkan kode, gambar dan lainnya untuk memperjelas pertanyaan."
                 containerWidth={dialogWidth}
               />
             </div>

@@ -31,7 +31,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, descri
     <div style={{ maxWidth: `calc(${containerWidth} - 3.5vw)` }}> 
       <ReactQuill
         className="z-index: 9999"
-        value={value}
         onChange={handleContentChange}
         modules={{
           toolbar: [
@@ -62,11 +61,11 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, descri
           "video",
         ]}
         ref={quillRef}
-        readOnly={contentLength >= 500}
+        readOnly={contentLength >= 10000}
         
       />
       <p style={{ fontSize: "0.75rem", color: "#6b7280", marginTop: "0.25rem" }}>
-        {descriptionText} ({contentLength} / 500)
+        {descriptionText}
       </p>
     </div>
   );

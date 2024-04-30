@@ -40,14 +40,12 @@ function ReportList() {
       const data = await response.json();
 
       setReports(data);
-      console.log('Report data fetched:', data);
     } catch (error) {
       console.error('Error fetching report data:', error);
     }
   };
 
   const handleDelete = async (threadId: number, commentId: number, commentReplyId: number) => {
-    console.log("parameter:", threadId, commentId, commentReplyId);
     try {
       let path = "";
       let id = null;
@@ -62,8 +60,6 @@ function ReportList() {
      path="";
      id = threadId 
     }
-    console.log("path:", path);
-    console.log("id:", id);
   
       const response = await fetch(
         `http://194.233.93.124:3030/discussion${path}/${id}`,
@@ -74,14 +70,17 @@ function ReportList() {
           },
           body: JSON.stringify({
             userId: authenticatedUser.username,
+            isAdmin: authenticatedUser.administrator,
           }),
         }
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+      setReports((prevData) =>
+        prevData.filter((report) => (report.thread_id !== id && report.comment_id !== id && report.comment_reply_id !== id)
+      ));
       const data = await response.json();
-      console.log("Report successfully deleted:", data);
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
@@ -109,7 +108,7 @@ function ReportList() {
             <TableRow key={report.id}>
               <TableCell>{report.author}</TableCell>
               <TableCell>{report.content ? parse(report.content) : report.content}</TableCell>
-              <TableCell>{report.reportType}</TableCell>
+              <TableCell>{report.report_type}</TableCell>
               <TableCell>
               <Button className="bg-red-500 hover:bg-red-700" onClick={() => handleDelete(report.thread_id, report.comment_id, report.comment_reply_id)}>Delete</Button>
               </TableCell>

@@ -1,39 +1,48 @@
 /* eslint-disable max-len */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { MailtoLink, Hyperlink } from '@edx/paragon';
-import { CheckCircle } from '@edx/paragon/icons';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { MailtoLink, Hyperlink } from "@edx/paragon";
+import { CheckCircle } from "@edx/paragon/icons";
+import { useIntl } from "@edx/frontend-platform/i18n";
 
-import { utilHooks, reduxHooks } from 'hooks';
-import Banner from 'components/Banner';
+import { utilHooks, reduxHooks } from "hooks";
+import Banner from "components/Banner";
 
-import messages from './messages';
+import messages from "./messages";
 
 const { useFormatDate } = utilHooks;
 
 export const CertificateBanner = ({ cardId }) => {
   const certificate = reduxHooks.useCardCertificateData(cardId);
-  const {
-    isAudit,
-    isVerified,
-  } = reduxHooks.useCardEnrollmentData(cardId);
+  const { isAudit, isVerified } = reduxHooks.useCardEnrollmentData(cardId);
   const { isPassing } = reduxHooks.useCardGradeData(cardId);
   const { isArchived } = reduxHooks.useCardCourseRunData(cardId);
-  const { minPassingGrade, progressUrl } = reduxHooks.useCardCourseRunData(cardId);
+  const { minPassingGrade, progressUrl } =
+    reduxHooks.useCardCourseRunData(cardId);
   const { supportEmail, billingEmail } = reduxHooks.usePlatformSettingsData();
   const { formatMessage } = useIntl();
   const formatDate = useFormatDate();
 
-  const emailLink = address => <MailtoLink to={address}>{address}</MailtoLink>;
+  const emailLink = (address) => (
+    <MailtoLink to={address}>{address}</MailtoLink>
+  );
 
   if (certificate.isRestricted) {
     return (
       <Banner variant="danger">
-        { supportEmail ? formatMessage(messages.certRestricted, { supportEmail: emailLink(supportEmail) }) : formatMessage(messages.certRestrictedNoEmail)}
-        {isVerified && '  '}
-        {isVerified && (billingEmail ? formatMessage(messages.certRefundContactBilling, { billingEmail: emailLink(billingEmail) }) : formatMessage(messages.certRefundContactBillingNoEmail))}
+        {supportEmail
+          ? formatMessage(messages.certRestricted, {
+              supportEmail: emailLink(supportEmail),
+            })
+          : formatMessage(messages.certRestrictedNoEmail)}
+        {isVerified && "  "}
+        {isVerified &&
+          (billingEmail
+            ? formatMessage(messages.certRefundContactBilling, {
+                billingEmail: emailLink(billingEmail),
+              })
+            : formatMessage(messages.certRefundContactBillingNoEmail))}
       </Banner>
     );
   }
@@ -43,7 +52,7 @@ export const CertificateBanner = ({ cardId }) => {
         {formatMessage(messages.certReady)}
         {certificate.certPreviewUrl && (
           <>
-            {'  '}
+            {"  "}
             <Hyperlink isInline destination={certificate.certPreviewUrl}>
               {formatMessage(messages.viewCertificate)}
             </Hyperlink>
@@ -55,8 +64,11 @@ export const CertificateBanner = ({ cardId }) => {
   if (!isPassing) {
     if (isAudit) {
       return (
-        <Banner>
-          {formatMessage(messages.passingGrade, { minPassingGrade })}
+        <Banner variant="warning" className="banner-container">
+          <div></div>
+          <div className="banner-message">
+            {formatMessage(messages.passingGrade, { minPassingGrade })}
+          </div>
         </Banner>
       );
     }
@@ -64,24 +76,28 @@ export const CertificateBanner = ({ cardId }) => {
       return (
         <Banner variant="warning">
           {formatMessage(messages.notEligibleForCert)}
-          {'  '}
-          <Hyperlink isInline destination={progressUrl}>{formatMessage(messages.viewGrades)}</Hyperlink>
+          {"  "}
+          <Hyperlink isInline destination={progressUrl}>
+            {formatMessage(messages.viewGrades)}
+          </Hyperlink>
         </Banner>
       );
     }
     return (
-      <Banner variant="warning">
-        {formatMessage(messages.certMinGrade, { minPassingGrade })}
+      <Banner variant="warning" className="banner-container">
+        <div></div>
+        <div className="banner-message">
+          {formatMessage(messages.certMinGrade, { minPassingGrade })}
+        </div>
       </Banner>
     );
   }
   if (certificate.isEarnedButUnavailable) {
     return (
       <Banner>
-        {formatMessage(
-          messages.gradeAndCertReadyAfter,
-          { availableDate: formatDate(certificate.availableDate) },
-        )}
+        {formatMessage(messages.gradeAndCertReadyAfter, {
+          availableDate: formatDate(certificate.availableDate),
+        })}
       </Banner>
     );
   }

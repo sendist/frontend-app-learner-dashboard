@@ -24,10 +24,12 @@ const CustomHeaderic = ({ actions }) => (
 );
 
 const CustomHeader = ({ children }) => (
-  <div className="flex justify-between items-center p-2">{children}</div>
+  <div className="flex justify-between items-center p-1 ml-3">{children}</div>
 );
 
-const CustomSection = ({ children }) => <div className="p-2">{children}</div>;
+const CustomSection = ({ children }) => (
+  <div className="p-1 ml-3">{children}</div>
+);
 
 export const CourseCard = ({ cardId }) => {
   const isCollapsed = useIsCollapsed();

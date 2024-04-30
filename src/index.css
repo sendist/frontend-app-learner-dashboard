@@ -192,3 +192,14 @@
     margin-left: 0px;
   }
 }
+
+.banner-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px;
+  margin-right: 40px;
+}
+
+.banner-message {
+  text-align: right;
+}
