@@ -31,7 +31,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, descri
     <div style={{ maxWidth: `calc(${containerWidth} - 3.5vw)` }}> 
       <ReactQuill
         className="z-index: 9999"
-        value={value}
         onChange={handleContentChange}
         modules={{
           toolbar: [

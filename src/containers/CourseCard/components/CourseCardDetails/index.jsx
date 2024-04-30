@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { Button } from '@edx/paragon';
+import { Button } from "@edx/paragon";
 
-import useCardDetailsData from './hooks';
+import useCardDetailsData from "./hooks";
 
 export const CourseCardDetails = ({ cardId }) => {
   const {
@@ -20,13 +20,18 @@ export const CourseCardDetails = ({ cardId }) => {
   return (
     <span className="small" data-testid="CourseCardDetails">
       {providerName} • {courseNumber}
-      {!(isEntitlement && !isFulfilled) && accessMessage && (
-        ` • ${accessMessage}`
-      )}
+      {!(isEntitlement && !isFulfilled) &&
+        accessMessage &&
+        ` • ${accessMessage}`}
       {isEntitlement && isFulfilled && canChange ? (
         <>
-          {' • '}
-          <Button variant="link" size="inline" className="m-0 p-0" onClick={openSessionModal}>
+          {" • "}
+          <Button
+            variant="link"
+            size="inline"
+            className="m-0 p-0"
+            onClick={openSessionModal}
+          >
             {changeOrLeaveSessionMessage}
           </Button>
         </>

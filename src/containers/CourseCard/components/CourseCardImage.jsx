@@ -27,6 +27,7 @@ export const CourseCardImage = ({ cardId, orientation }) => {
         className="pgn__card-image-cap show"
         src={bannerImgSrc}
         alt={formatMessage(messages.bannerAlt)}
+        style={{ width: '300px', height: '200px', maxWidth: '100%' }}
       />
       {
         isVerified && (
