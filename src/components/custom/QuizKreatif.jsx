@@ -149,8 +149,6 @@ const QuizKreatif = () => {
     useEffect(() => {
         getAllQuiz();
         getAllTag();
-
-        console.log("username: ", getAuthenticatedUser.username)
     }, []);
 
     return (
