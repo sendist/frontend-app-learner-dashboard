@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Creatable from 'react-select/creatable';
-// import NavbarQuiz from '../components/NavbarQuiz';
-import { FaCheck } from 'react-icons/fa';
 import { IoCloudUpload } from 'react-icons/io5';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
@@ -31,6 +29,8 @@ const TambahQuiz = () => {
             }
         };
         getAllTag();
+
+        setUserId(getAuthenticatedUser().userId);
     }, []);
 
     const handleFileInputChange = (event) => {
@@ -60,7 +60,7 @@ const TambahQuiz = () => {
     };
 
     const handleBackClick = () => {
-        navigate('/');
+        navigate('/quiz');
     };
 
     const handleSave = async () => {
@@ -75,10 +75,12 @@ const TambahQuiz = () => {
             formData.append(`tags[${index}][nama_tag]`, tag.value);
         });
 
+        console.log("Form Data: ", formData)
+
         try {
             const response = await axios.post('http://194.233.93.124:3030/quiz/new-quiz', formData);
             console.log(response.data);
-            navigate('/');
+            navigate('/quiz');
         } catch (error) {
             console.log(error)
             setErrMsg(error.response?.data?.msg || "An error occurred");
@@ -135,14 +137,14 @@ const TambahQuiz = () => {
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-[#F5F7F9]"
                                     />
                                 </div>
-                                <div className="mb-6">
+                                <div className="mb-6 hidden">
                                     <label htmlFor="userId" className="block text-gray-700 text-sm font-bold mb-2">
                                         User ID
                                     </label>
                                     <input
                                         type="text"
                                         id="userId"
-                                        value={getAuthenticatedUser().userId}
+                                        value={userId}
                                         onChange={e => setUserId(e.target.value)}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-[#F5F7F9]"
                                     />
@@ -167,7 +169,7 @@ const TambahQuiz = () => {
                                         Jumlah Soal Dalam Quiz
                                     </label>
                                     <input
-                                        type="number"
+                                        type="text"
                                         id="userId"
                                         value={jumlahSoal}
                                         onChange={e => setJumlahSoal(e.target.value)}

@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Creatable from 'react-select/creatable';
-// import NavbarQuiz from '../components/NavbarQuiz';
-import { FaCheck } from 'react-icons/fa';
 import { IoCloudUpload } from 'react-icons/io5';
-
+import { useQuiz } from '../../QuizContext';
 
 const EditQuiz = () => {
     const [title, setTitle] = useState('');
@@ -20,7 +18,7 @@ const EditQuiz = () => {
     const [tagOptions, setTagOptions] = useState([]);
     const [errMsg, setErrMsg] = useState('');
     const navigate = useNavigate();
-    const { quizId } = useParams();
+    const { quizId } = useQuiz();
 
     useEffect(() => {
         const getAllTag = async () => {
@@ -59,7 +57,7 @@ const EditQuiz = () => {
     };
 
     const handleBackClick = () => {
-        navigate('/');
+        navigate(`/my-quiz`);
     };
 
     const handleTagChange = (selectedOptions) => {
@@ -97,7 +95,7 @@ const EditQuiz = () => {
         try {
             const response = await axios.put(`http://194.233.93.124:3030/quiz/edit-quiz/${quizId}`, formData);
             console.log(response.data);
-            navigate('/');
+            navigate(`/my-quiz`);
         } catch (error) {
             console.log(error);
             setErrMsg(error.response?.data?.msg || "An error occurred");
@@ -153,7 +151,7 @@ const EditQuiz = () => {
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-[#F5F7F9]"
                                     />
                                 </div>
-                                <div className="mb-6">
+                                <div className="mb-6 hidden">
                                     <label htmlFor="userId" className="block text-gray-700 text-sm font-bold mb-2">
                                         User ID
                                     </label>
@@ -185,7 +183,7 @@ const EditQuiz = () => {
                                         Jumlah Soal Dalam Quiz
                                     </label>
                                     <input
-                                        type="number"
+                                        type="text"
                                         id="userId"
                                         value={jumlahSoal}
                                         onChange={e => setJumlahSoal(e.target.value)}

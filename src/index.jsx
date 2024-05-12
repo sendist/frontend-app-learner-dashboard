@@ -35,6 +35,7 @@ import QuizKreatif from './components/custom/QuizKreatif';
 import TambahQuiz from './components/custom/TambahQuiz';
 import EditQuiz from './components/custom/EditQuiz';
 import MyQuiz from './components/custom/MyQuiz';
+import { QuizProvider } from "./QuizContext";
 import Sidebar from "./components/custom/Sidebar";
 import LayoutRekomendasiTeman from "./components/custom/LayoutRekomendasiTeman";
 import TimelineLayout from "./components/custom/LayoutTimeline";
@@ -97,10 +98,26 @@ subscribe(APP_READY, () => {
               }
             >
               <Route index element={<Dashboard />} />
-              <Route path="quiz" element={<QuizKreatif />} />
-              <Route path="/tambah-quiz" element={<TambahQuiz />} />
-              <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
-              <Route path="/my-quiz/:userId" element={<MyQuiz />} />
+              <Route path="quiz" element={
+                <QuizProvider>
+                  <QuizKreatif />
+                </QuizProvider>
+              } />
+              <Route path="/tambah-quiz" element={
+                <QuizProvider>
+                  <TambahQuiz />
+                </QuizProvider>
+              } />
+              <Route path="/edit-quiz" element={
+                <QuizProvider>
+                  <EditQuiz />
+                </QuizProvider>
+              } />
+              <Route path="/my-quiz" element={
+                <QuizProvider>
+                  <MyQuiz />
+                </QuizProvider>
+              } />
               <Route path="studynotes" element={<CatatanLayout />} />
               <Route path="report-list" element={<ReportList />} />
               <Route path="findfriends" element={<Outlet />}>

@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { IoIosNotificationsOutline } from "react-icons/io";
 import { CiShare2 } from "react-icons/ci";
 import { FaRegEdit } from "react-icons/fa";
-import { MdPeople } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdFormatListBulleted } from "react-icons/md";
-import { TbCategory } from "react-icons/tb";
-// import NavbarQuiz from "../components/NavbarQuiz";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { IoIosSearch } from "react-icons/io";
+import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+import { useQuiz } from "../../QuizContext";
 
 const MyQuiz = () => {
     const [quizzes, setQuizzes] = useState([]);
@@ -19,10 +17,10 @@ const MyQuiz = () => {
     const [modalShow, setModalShow] = useState(false);
     const [link, setLink] = useState("");
     const navigate = useNavigate();
-    const [copied, setCopied] = useState(false);
-    const { userId } = useParams();
+    const [userId, setUserId] = useState('');
     const [searchTerm, setSearchTerm] = useState("");
     const [showCopyNotification, setShowCopyNotification] = useState(false);
+    const { saveQuizId } = useQuiz();
 
     const handleTambahQuizClick = () => {
         navigate("/tambah-quiz");
@@ -91,7 +89,8 @@ const MyQuiz = () => {
     };
 
     const handleEditQuiz = (quizId) => {
-        navigate(`/edit-quiz/${quizId}`);
+        saveQuizId(quizId);
+        navigate(`/edit-quiz`);
     };
 
     const handleInputChange = (event) => {
@@ -115,6 +114,7 @@ const MyQuiz = () => {
     useEffect(() => {
         getMyQuiz();
         getAllTag();
+        setUserId(getAuthenticatedUser().userId);
     }, [userId]);
 
     return (

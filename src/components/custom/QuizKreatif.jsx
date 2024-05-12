@@ -5,8 +5,8 @@ import { CiShare2 } from "react-icons/ci";
 import { GoReport } from "react-icons/go";
 import { MdFormatListBulleted } from "react-icons/md";
 import { TbCategory } from "react-icons/tb";
-// import NavbarQuiz from "../components/NavbarQuiz";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
 const QuizKreatif = () => {
     const [quizzes, setQuizzes] = useState([]);
@@ -23,6 +23,10 @@ const QuizKreatif = () => {
 
     const handleTambahQuizClick = () => {
         navigate("/tambah-quiz");
+    };
+
+    const handleMyQuizBtn = () => {
+        navigate(`/my-quiz`);
     };
 
     const getAllQuiz = async () => {
@@ -145,6 +149,8 @@ const QuizKreatif = () => {
     useEffect(() => {
         getAllQuiz();
         getAllTag();
+
+        console.log("username: ", getAuthenticatedUser.username)
     }, []);
 
     return (
@@ -216,11 +222,17 @@ const QuizKreatif = () => {
                                 )}
                             </div>
 
-                            <div className="relative inline-block text-left flex items-center">
-                                <TbCategory className="mr-3 text-teal-400 text-2xl mb-5" />
+                            <div className="relative inline-block text-left flex items-center mb-8">
+                                <button
+                                    onClick={handleMyQuizBtn}
+                                    className="bg-teal-500 hover:bg-teal-700 text-white text-sm py-2 px-6 rounded mr-4"
+                                >
+                                    My Quiz
+                                </button>
+                                <TbCategory className="mr-3 text-teal-400 text-2xl " />
                                 <select
                                     onChange={handleDropdownChange}
-                                    className="text-sm bg-white text-gray-500 border border-gray-300 py-2 pr-10 pl-3 rounded-lg mb-4 text-left inline-flex items-center appearance-none"
+                                    className="text-sm bg-white text-gray-500 border border-gray-300 py-2 pr-10 pl-3 rounded-lg text-left inline-flex items-center appearance-none"
                                 >
                                     <option value="Semua">Semua Kategori Quiz</option>
                                     {tags.map((tag) => (
